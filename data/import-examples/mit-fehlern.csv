@@ -1,0 +1,4 @@
+id;title;sale.packSize;price.net;price.taxRate
+BSP-300;Fehlerbeispiel Menge null;0;10;19
+BSP-301;Fehlerbeispiel Preis;1;zehn Euro;19
+BSP-302;Gültiger Datensatz;1;10,50;19

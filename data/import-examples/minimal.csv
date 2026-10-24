@@ -1,0 +1,3 @@
+id;sku;family;variant.label;title;sale.unit;sale.packSize;sale.minOrderQty;price.net;price.taxRate;price.currency;synthetic
+BSP-200;BSP-SKU-200;Beispielfamilie CSV;Variante B;BEISPIEL CSV-Datensatz (synthetisch);Packung;6;2;"48,00";19;EUR;yes
+BSP-201;;;;=Formel-Test (synthetisch);Set;1;1;10;19;EUR;yes

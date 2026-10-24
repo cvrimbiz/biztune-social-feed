@@ -1,0 +1,53 @@
+// Adaptergerüst TikTok Shop. KEIN validiertes Zielschema: Spaltennamen sind interne Namen.
+// Angenommene Zwei-Ebenen-Struktur (Produkt/SKU) ist ungeprüft.
+import { availabilityClaim, firstImage, otherImages } from './common.mjs';
+
+export const tiktokAdapter = {
+  id: 'tiktok',
+  name: 'TikTok Shop – Gerüst',
+  schemaValidated: false,
+  columns: ['spu_ref', 'sku_ref', 'seller_sku', 'gtin', 'product_title', 'product_description', 'sale_attribute_name',
+    'sale_attribute_value', 'price_gross', 'currency', 'unit', 'pack_size', 'min_order_qty', 'finishing_config',
+    'image_main', 'image_extra', 'availability_claim', 'availability_as_of', 'delivery_time', 'shipping_rule',
+    'product_link', 'landing_url', 'food_flag', 'alcohol_flag'],
+  mapProduct: (p) => ({
+    spu_ref: p.family,
+    sku_ref: p.id,
+    seller_sku: p.sku,
+    gtin: p.gtin,
+    product_title: p.title,
+    product_description: p.description,
+    sale_attribute_name: 'Variante',
+    sale_attribute_value: p.variant.label,
+    price_gross: p.price.gross,
+    currency: p.price.currency,
+    unit: p.sale.unit,
+    pack_size: p.sale.packSize,
+    min_order_qty: p.sale.minOrderQty,
+    finishing_config: p.finishing.required === 'yes' ? p.finishing.offeredConfig : '',
+    image_main: firstImage(p),
+    image_extra: otherImages(p),
+    availability_claim: availabilityClaim(p),
+    availability_as_of: p.availability.asOf,
+    delivery_time: p.shipping.deliveryTime,
+    shipping_rule: p.shipping.rule,
+    product_link: p.productUrl,
+    landing_url: p.landing.url,
+    food_flag: p.flags.food,
+    alcohol_flag: p.flags.alcohol,
+  }),
+  missingTemplates: [
+    'Aktuelle deutsche Original-Upload-Vorlage von TikTok Shop für den Zielmarkt Deutschland je Produktkategorie – bisher liegt keine vor, es wurde keine US-Vorlage übernommen.',
+    'Kategoriebaum und kategoriespezifische Pflichtattribute.',
+    'Verbindliche Struktur für Produkt (SPU) und Varianten (SKU) inkl. Variantenattribute und Mengen-/Paketangaben.',
+    'Vorgaben zu Mindestbestellmenge/Verkaufseinheit (ob Paketverkauf abbildbar ist) und zu Preisangaben brutto/netto.',
+    'Pflichtangaben zu Produktsicherheit und Verantwortlichen im EU-Markt sowie zu Lebensmitteln/Alkohol (Umfang laut Vorlage klären).',
+    'Bestandsangabe: Ob eine Stückzahl verlangt wird – Lieferantenverfügbarkeit ist kein eigener Bestand, das Vorgehen muss geklärt werden.',
+    'Gewicht/Maße, Versand- und Logistikvorlage, Rückgaberegeln.',
+    'Bild- und Textvorgaben (Format, Anzahl, Zeichenlimits).',
+  ],
+  unknownRequiredFields: [
+    'Plattformkategorie-ID', 'Marke', 'Gewicht/Maße', 'Versandvorlage', 'Bestandsmenge (falls verlangt)',
+    'Verbindliche Spaltennamen aller Pflichtfelder',
+  ],
+};

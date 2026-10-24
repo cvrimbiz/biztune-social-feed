@@ -1,0 +1,13 @@
+{
+  "name": "biztune-social-feed",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Lokaler Social-Produktassistent für BizTune (Vorbereitung von Meta- und TikTok-Shop-Angeboten). Prototyp mit synthetischen Beispieldaten.",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test",
+    "report": "node scripts/sample-report.mjs"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "format": "biztune-social-worklist",
+  "version": 1,
+  "products": [
+    {
+      "id": "BSP-100",
+      "sku": "BSP-SKU-100",
+      "family": "Beispielfamilie",
+      "variant": { "label": "Variante A" },
+      "title": "BEISPIEL minimaler Datensatz (synthetisch)",
+      "sale": { "unit": "Set", "packSize": 1, "minOrderQty": 1 },
+      "price": { "net": "10.00", "taxRate": "19", "currency": "EUR", "origin": "database", "confirmed": "yes" },
+      "synthetic": true
+    }
+  ]
+}

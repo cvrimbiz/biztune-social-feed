@@ -1,0 +1,53 @@
+// Adaptergerüst Meta (Instagram/Facebook-Katalog). KEIN validiertes Zielschema:
+// Spaltennamen sind interne Namen, keine bestätigten Spalten der Meta-Vorlage.
+import { availabilityClaim, firstImage, otherImages } from './common.mjs';
+
+export const metaAdapter = {
+  id: 'meta',
+  name: 'Meta (Instagram / Facebook) – Gerüst',
+  schemaValidated: false,
+  columns: ['offer_id', 'sku', 'gtin', 'group_ref', 'variant', 'title', 'description', 'product_link', 'landing_url',
+    'image_main', 'image_additional', 'price_gross', 'currency', 'tax_rate_percent', 'sale_unit', 'pack_size',
+    'min_order_qty', 'finishing_config', 'availability_claim', 'availability_as_of', 'shipping_rule', 'delivery_time',
+    'food_flag', 'alcohol_flag'],
+  mapProduct: (p) => ({
+    offer_id: p.id,
+    sku: p.sku,
+    gtin: p.gtin,
+    group_ref: p.family,
+    variant: p.variant.label,
+    title: p.title,
+    description: p.description,
+    product_link: p.productUrl,
+    landing_url: p.landing.url,
+    image_main: firstImage(p),
+    image_additional: otherImages(p),
+    price_gross: p.price.gross,
+    currency: p.price.currency,
+    tax_rate_percent: p.price.taxRate,
+    sale_unit: p.sale.unit,
+    pack_size: p.sale.packSize,
+    min_order_qty: p.sale.minOrderQty,
+    finishing_config: p.finishing.required === 'yes' ? p.finishing.offeredConfig : '',
+    availability_claim: availabilityClaim(p),
+    availability_as_of: p.availability.asOf,
+    shipping_rule: p.shipping.rule,
+    delivery_time: p.shipping.deliveryTime,
+    food_flag: p.flags.food,
+    alcohol_flag: p.flags.alcohol,
+  }),
+  missingTemplates: [
+    'Aktuelle deutsche Original-Katalogvorlage von Meta (CSV/XLSX) für jede betroffene Produktkategorie – bisher liegt keine vor, es wurde keine US-Vorlage übernommen.',
+    'Offizielle Beschreibung der Pflicht- und optionalen Felder je Kategorie mit deutschen Spaltenköpfen und erlaubten Werten (z. B. Verfügbarkeit, Zustand).',
+    'Vorgaben zum Preisformat (Währungsangabe, brutto/netto im deutschen Markt) und zu Mindestmengen/Paketeinheiten.',
+    'Regel für Varianten/Produktgruppen (wie Familie und Variante verknüpft werden).',
+    'Pflicht von GTIN/MPN/Marke je Kategorie – interne GTINs sind leer, solange sie nicht belegt sind.',
+    'Bildanforderungen (Format, Größe, Anzahl) und Zeichenlimits für Titel/Beschreibung.',
+    'Richtlinien für eingeschränkte Waren (Lebensmittel, Alkohol) im Zielmarkt Deutschland.',
+    'Klärung, über welchen Kaufweg (Checkout auf eigener Website oder auf der Plattform) Angebote ausgespielt werden – bestimmt, welche Landingpage-Prüfung nötig ist.',
+  ],
+  unknownRequiredFields: [
+    'Plattformkategorie (Taxonomie-ID)', 'Marke', 'Zustand (neu/gebraucht)', 'Versandgewicht/-maße (falls verlangt)',
+    'Rückgabe-/Versandrichtlinien-Bezug', 'Verbindliche Spaltennamen aller Pflichtfelder',
+  ],
+};

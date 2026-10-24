@@ -1,0 +1,86 @@
+{
+  "_hinweis": "SYNTHETISCHE TESTWERTE – keine echten Einkaufspreise oder Margen. Vertraulicher Kalkulationsbereich, nie in Feeds.",
+  "costs": {
+    "SYN-001": {
+      "purchaseNetPerPiece": "10.00",
+      "packagingPerUnit": "0.50",
+      "handlingPerUnit": "1.00",
+      "shippingSubsidyPerUnit": "2.00",
+      "fees": [
+        {
+          "name": "Testgebühr Plattform",
+          "basis": "net_price",
+          "ratePercent": "5"
+        },
+        {
+          "name": "Testgebühr Zahlung",
+          "basis": "gross_price",
+          "ratePercent": "2.5"
+        },
+        {
+          "name": "Testpauschale je Bestellung",
+          "basis": "fixed_per_order",
+          "amount": "0.30",
+          "unitsPerOrder": 1
+        }
+      ],
+      "target": {
+        "type": "margin",
+        "percent": "30"
+      }
+    },
+    "SYN-002": {
+      "purchaseNetPerPiece": "11.00",
+      "packagingPerUnit": "0.50",
+      "handlingPerUnit": "1.00",
+      "shippingSubsidyPerUnit": "2.00",
+      "fees": [],
+      "target": {
+        "type": "markup",
+        "percent": "40"
+      }
+    },
+    "SYN-004": {
+      "purchaseNetPerPiece": "15.00",
+      "finishingPerPiece": "2.00",
+      "setupTotal": "60.00",
+      "setupAllocationUnits": 30,
+      "packagingPerUnit": "0.50",
+      "handlingPerUnit": "1.00",
+      "shippingSubsidyPerUnit": "2.00",
+      "fees": [
+        {
+          "name": "Testgebühr Plattform",
+          "basis": "net_price",
+          "ratePercent": "5"
+        },
+        {
+          "name": "Testgebühr Zahlung",
+          "basis": "gross_price",
+          "ratePercent": "2.5"
+        },
+        {
+          "name": "Testpauschale je Bestellung",
+          "basis": "fixed_per_order",
+          "amount": "0.30",
+          "unitsPerOrder": 1
+        }
+      ],
+      "target": {
+        "type": "margin",
+        "percent": "25"
+      }
+    },
+    "SYN-005": {
+      "purchaseNetPerPiece": "5.00",
+      "packagingPerUnit": "0.30",
+      "handlingPerUnit": "0.80",
+      "shippingSubsidyPerUnit": "0",
+      "fees": null,
+      "target": {
+        "type": "margin",
+        "percent": "35"
+      }
+    }
+  }
+}
