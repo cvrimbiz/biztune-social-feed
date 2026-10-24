@@ -7,6 +7,15 @@ import { getPath, ENUMS } from './schema.mjs';
 
 const has = (v) => v !== null && v !== undefined && v !== '' && !(Array.isArray(v) && v.length === 0);
 
+// Gültigkeit von Quelldaten: ältere Angaben gelten als veraltet und sperren. `today` ist für Tests überschreibbar.
+export const config = { maxAgeDays: 30, today: () => new Date().toISOString().slice(0, 10) };
+
+export function isStale(dateStr) {
+  if (!dateStr) return false;
+  const days = (Date.parse(config.today()) - Date.parse(dateStr)) / 86400000;
+  return days > config.maxAgeDays;
+}
+
 export const GROUPS = ['data', 'price', 'export'];
 export const GROUP_LABEL = { data: 'Produktdaten', price: 'Verkaufspreis', export: 'Plattformexport' };
 
@@ -29,19 +38,32 @@ export function dataProblems(p) {
   if (!has(p.sale?.unit)) miss('sale.unit', 'Verkaufseinheit');
   if (!has(p.sale?.packSize)) miss('sale.packSize', 'Paketinhalt');
   if (!has(p.sale?.minOrderQty)) miss('sale.minOrderQty', 'Mindestbestellmenge');
+  if (!has(p.sale?.components)) miss('sale.components', 'Feste Stückliste / Inhalt des Sets');
   const fr = p.finishing?.required;
   if (!fr) miss('finishing.required', 'Veredelungspflicht');
   else if (fr === 'yes') {
     if (!has(p.finishing?.offeredConfig)) miss('finishing.offeredConfig', 'Konkret angebotene Veredelungskonfiguration');
     if (p.finishing?.configComplete !== 'yes') bad('finishing.configComplete', 'Veredelungskonfiguration unvollständig', 'Pflichtveredelung muss vollständig festgelegt sein');
+    for (const [k, l] of [['printPosition', 'Druckposition'], ['printColors', 'Druckfarben'], ['printArea', 'Druckfläche'], ['artworkProcess', 'Druckdaten-/Korrekturprozess']]) {
+      if (!has(p.finishing?.[k])) miss(`finishing.${k}`, l);
+    }
+    if (!p.finishing?.oneOffIncluded) miss('finishing.oneOffIncluded', 'Angabe, ob Einmalkosten im Preis enthalten sind');
   }
   if (!has(p.source?.name)) miss('source.name', 'Quelle');
   if (!has(p.source?.updatedAt)) miss('source.updatedAt', 'Aktualisierungsdatum der Quelle');
+  else if (isStale(p.source.updatedAt)) bad('source.updatedAt', `Quelldaten veraltet (älter als ${config.maxAgeDays} Tage)`);
   if (!p.flags?.food) miss('flags.food', 'Kennzeichnung Lebensmittel (ja/nein)');
   if (!p.flags?.alcohol) miss('flags.alcohol', 'Kennzeichnung Alkohol (ja/nein)');
+  if (!p.flags?.chilled) miss('flags.chilled', 'Kennzeichnung Kühlpflicht (ja/nein)');
   if (!p.compliance?.status) miss('compliance.status', 'Prüfstatus Produkt-/Sicherheitsangaben');
-  else if ((p.flags?.food === 'yes' || p.flags?.alcohol === 'yes') && p.compliance.status !== 'checked') {
-    bad('compliance.status', 'Lebensmittel/Alkohol: erforderliche Angaben müssen als „geprüft“ bestätigt sein');
+  else if ((p.flags?.food === 'yes' || p.flags?.alcohol === 'yes' || p.flags?.chilled === 'yes') && p.compliance.status !== 'checked') {
+    bad('compliance.status', 'Lebensmittel/Alkohol/Kühlware: Anforderungen müssen als „geprüft“ bestätigt sein (bis dahin gesperrt)');
+  }
+  if (p.flags?.food === 'yes') {
+    for (const [k, l] of [['ingredients', 'Zutaten'], ['allergens', 'Allergene'], ['netContent', 'Füllmenge'], ['nutrition', 'Nährwerte oder belegte Ausnahme'],
+      ['responsibleOperator', 'Verantwortlicher Lebensmittelunternehmer'], ['shelfLife', 'Haltbarkeit/Charge'], ['storage', 'Lager-/Verwendungshinweise']]) {
+      if (!has(p.food?.[k])) miss(`food.${k}`, `Lebensmittel: ${l}`);
+    }
   }
   return out;
 }
@@ -83,9 +105,20 @@ export function exportProblems(p) {
   else if (as === 'on_request') bad('availability.status', 'Verfügbarkeit nur auf Anfrage – nicht kaufbar');
   if (as && !has(p.availability?.evidence)) miss('availability.evidence', 'Beleg der Verfügbarkeit');
   if (as && !has(p.availability?.asOf)) miss('availability.asOf', 'Stand der Verfügbarkeit');
+  else if (as && isStale(p.availability.asOf)) bad('availability.asOf', `Verfügbarkeitsstand veraltet (älter als ${config.maxAgeDays} Tage)`);
+  if (as === 'own_stock') {
+    if (!has(p.availability?.reservedQty)) miss('availability.reservedQty', 'Reservierter eigener Bestand (Stückzahl)');
+    if (!has(p.availability?.location)) miss('availability.location', 'Lagerort des Bestands');
+    if (!has(p.availability?.sla)) miss('availability.sla', 'Zusage/SLA zur Bestandsreservierung');
+  }
+  if (p.availability?.capacityConfirmed !== 'yes') miss('availability.capacityConfirmed', 'Bestätigte Lieferfähigkeit (auch saisonal/Produktionskapazität)');
+  if (!has(p.logistics?.weightGrams)) miss('logistics.weightGrams', 'Versandgewicht');
+  if (!has(p.logistics?.dimensionsMm)) miss('logistics.dimensionsMm', 'Maße');
+  if (has(p.asin) && !has(p.asinProof)) bad('asin', 'ASIN ohne Nachweis der Produktidentität');
   const l = p.landing ?? {};
   if (!has(l.url)) miss('landing.url', 'Landingpage-Link');
   if (!has(l.checkedAt)) miss('landing.checkedAt', 'Datum der Landingpage-Prüfung');
+  else if (isStale(l.checkedAt)) bad('landing.checkedAt', `Landingpage-Prüfung veraltet (älter als ${config.maxAgeDays} Tage)`);
   if (has(l.url) && has(l.checkedAt)) {
     if (!has(l.variant)) miss('landing.variant', 'Dort kaufbare Variante');
     else if (has(p.variant?.label) && l.variant.trim().toLowerCase() !== p.variant.label.trim().toLowerCase()) {
@@ -108,12 +141,15 @@ export function fingerprint(p, group) {
     data: ['id', 'sku', 'gtin', 'family', 'variant.label', 'title', 'description', 'productUrl', 'imageUrls',
       'imageRights.status', 'imageRights.evidence', 'sale.unit', 'sale.packSize', 'sale.minOrderQty',
       'finishing.required', 'finishing.offeredConfig', 'finishing.configComplete', 'source.name', 'source.updatedAt',
-      'flags.food', 'flags.alcohol', 'compliance.status'],
+      'flags.food', 'flags.alcohol', 'flags.chilled', 'compliance.status', 'sale.components', 'brand', 'asin', 'asinProof',
+      'finishing.printPosition', 'finishing.printColors', 'finishing.printArea', 'finishing.artworkProcess', 'finishing.oneOffIncluded',
+      'food.ingredients', 'food.allergens', 'food.netContent', 'food.nutrition', 'food.responsibleOperator', 'food.shelfLife', 'food.storage'],
     price: ['id', 'price.net', 'price.taxRate', 'price.gross', 'price.currency', 'price.origin', 'price.confirmed',
       'sale.unit', 'sale.packSize', 'sale.minOrderQty', 'variant.label'],
     export: ['id', 'variant.label', 'price.gross', 'sale.minOrderQty', 'inquiryOnly', 'shipping.rule', 'shipping.deliveryTime',
       'availability.status', 'availability.evidence', 'availability.asOf', 'landing.url', 'landing.checkedAt',
-      'landing.variant', 'landing.qty', 'landing.price'],
+      'landing.variant', 'landing.qty', 'landing.price', 'availability.reservedQty', 'availability.location', 'availability.sla',
+      'availability.capacityConfirmed', 'logistics.weightGrams', 'logistics.dimensionsMm'],
   }[group];
   const text = JSON.stringify(paths.map((k) => getPath(p, k) ?? null));
   let h = 0x811c9dc5; // FNV-1a 32 Bit
@@ -196,7 +232,8 @@ export function warnings(p) {
   if (p.availability?.status === 'supplier_available') w.push('Lieferantenverfügbarkeit ist kein eigener Lagerbestand – nicht als „auf Lager“ ausweisen.');
   if (p.price?.origin === 'proposal') w.push('Preis ist ein lokaler Vorschlag und noch kein bestätigter Datenbankpreis.');
   if (p.flags?.alcohol === 'yes') w.push('Alkohol: Plattformregeln und Altersvorgaben wurden nicht geprüft.');
-  if (p.flags?.food === 'yes') w.push('Lebensmittel: Kennzeichnungs-/Plattformregeln wurden nicht geprüft.');
+  if (p.flags?.food === 'yes') w.push('Lebensmittel: Kennzeichnungs-/Plattformregeln wurden nicht geprüft (Grundpreisangabe, Registrierung, Rückgabe/Widerruf, Verpackungsrollen separat prüfen).');
+  if (p.flags?.chilled === 'yes') w.push('Kühlware: Versand-/Plattformanforderungen nicht geprüft.');
   if (p.sale?.minOrderQty > 1) w.push(`Mindestbestellmenge ${p.sale.minOrderQty} Verkaufseinheiten – Landingpage und Feed müssen dies abbilden.`);
   if (p.workflow?.status === 'excluded' && !has(p.workflow.exclusionReason)) w.push('Ausschlussgrund fehlt.');
   return w;

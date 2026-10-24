@@ -30,6 +30,7 @@ export function scoreProduct(p, adapter) {
   if (p.imageRights.status === 'confirmed') { s += 10; plus.push('Bildrechte bestätigt'); } else minus.push('Bildrechte offen');
   if (p.gtin) { s += 5; plus.push('GTIN vorhanden'); }
   if (p.flags.alcohol === 'yes') { s -= 25; minus.push('Alkohol (Plattformbeschränkungen ungeprüft)'); }
+  if (p.flags.chilled === 'yes') { s -= 15; minus.push('Kühlware (Anforderungen ungeprüft)'); }
   if (p.flags.food === 'yes') { s -= 15; minus.push('Lebensmittel (Auflagen ungeprüft)'); }
   return { score: clamp(s), plus, minus, hardStop: false };
 }

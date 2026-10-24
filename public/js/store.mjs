@@ -1,7 +1,7 @@
 // Lokale Speicherung im Browser (localStorage). Arbeitsliste und vertrauliche
 // Kalkulation liegen unter getrennten Schlüsseln; es gibt keine Netzwerkaufrufe.
 
-const KEYS = { products: 'bt.products.v1', costs: 'bt.costs.v1', backup: 'bt.backup.v1', user: 'bt.user.v1', mappings: 'bt.mappings.v1' };
+const KEYS = { products: 'bt.products.v1', costs: 'bt.costs.v1', backup: 'bt.backup.v1', user: 'bt.user.v1', mappings: 'bt.mappings.v1', platform: 'bt.platform.v1' };
 
 function read(key, fallback) {
   try {
@@ -26,6 +26,8 @@ export const store = {
   saveBackup: (v) => write(KEYS.backup, v),
   loadMappings: () => read(KEYS.mappings, {}),
   saveMappings: (v) => write(KEYS.mappings, v),
+  loadPlatform: () => read(KEYS.platform, {}),
+  savePlatform: (v) => write(KEYS.platform, v),
   loadUser: () => read(KEYS.user, ''),
   saveUser: (v) => write(KEYS.user, v),
   clearAll() { try { Object.values(KEYS).forEach((k) => globalThis.localStorage.removeItem(k)); return true; } catch { return false; } },

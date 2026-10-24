@@ -2,19 +2,23 @@
   "_hinweis": "SYNTHETISCHE TESTWERTE – keine echten Einkaufspreise oder Margen. Vertraulicher Kalkulationsbereich, nie in Feeds.",
   "costs": {
     "SYN-001": {
-      "purchaseNetPerPiece": "10.00",
+      "source": "SYNTHETISCHE Testregel",
+      "validUntil": "2026-12-31",
       "packagingPerUnit": "0.50",
       "handlingPerUnit": "1.00",
-      "shippingSubsidyPerUnit": "2.00",
+      "shippingCostNetPerUnit": "4.20",
+      "shippingRevenueGross": "0",
+      "shippingTaxSame": "yes",
+      "purchaseNetPerPiece": "10.00",
       "fees": [
         {
           "name": "Testgebühr Plattform",
-          "basis": "net_price",
+          "basis": "net_item",
           "ratePercent": "5"
         },
         {
           "name": "Testgebühr Zahlung",
-          "basis": "gross_price",
+          "basis": "gross_total",
           "ratePercent": "2.5"
         },
         {
@@ -30,10 +34,14 @@
       }
     },
     "SYN-002": {
-      "purchaseNetPerPiece": "11.00",
+      "source": "SYNTHETISCHE Testregel",
+      "validUntil": "2026-12-31",
       "packagingPerUnit": "0.50",
       "handlingPerUnit": "1.00",
-      "shippingSubsidyPerUnit": "2.00",
+      "shippingCostNetPerUnit": "4.20",
+      "shippingRevenueGross": "0",
+      "shippingTaxSame": "yes",
+      "purchaseNetPerPiece": "11.00",
       "fees": [],
       "target": {
         "type": "markup",
@@ -41,22 +49,30 @@
       }
     },
     "SYN-004": {
-      "purchaseNetPerPiece": "15.00",
-      "finishingPerPiece": "2.00",
-      "setupTotal": "60.00",
-      "setupAllocationUnits": 30,
+      "source": "SYNTHETISCHE Testregel",
+      "validUntil": "2026-12-31",
       "packagingPerUnit": "0.50",
       "handlingPerUnit": "1.00",
-      "shippingSubsidyPerUnit": "2.00",
+      "shippingCostNetPerUnit": "4.20",
+      "shippingRevenueGross": "0",
+      "shippingTaxSame": "yes",
+      "purchaseNetPerPiece": "15.00",
+      "finishingPerPiece": "2.00",
+      "oneOff": {
+        "mode": "distributed",
+        "total": "60.00",
+        "packages": 30,
+        "proof": "SYNTHETISCH: Testbeleg Abnahmezusage"
+      },
       "fees": [
         {
           "name": "Testgebühr Plattform",
-          "basis": "net_price",
+          "basis": "net_item",
           "ratePercent": "5"
         },
         {
           "name": "Testgebühr Zahlung",
-          "basis": "gross_price",
+          "basis": "gross_total",
           "ratePercent": "2.5"
         },
         {
@@ -72,10 +88,14 @@
       }
     },
     "SYN-005": {
+      "source": "SYNTHETISCHE Testregel",
+      "validUntil": "2026-12-31",
+      "packagingPerUnit": "0.50",
+      "handlingPerUnit": "1.00",
+      "shippingCostNetPerUnit": "0",
+      "shippingRevenueGross": "0",
+      "shippingTaxSame": "yes",
       "purchaseNetPerPiece": "5.00",
-      "packagingPerUnit": "0.30",
-      "handlingPerUnit": "0.80",
-      "shippingSubsidyPerUnit": "0",
       "fees": null,
       "target": {
         "type": "margin",

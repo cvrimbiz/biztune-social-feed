@@ -5,15 +5,11 @@ import { checkPrice, grossFromNet, suggestPrice, FEE_BASES, ROUNDING, MARGIN_DEF
 import { formatMoney, formatPercent } from './decimal.mjs';
 
 const COST_FIELDS = [
-  ['purchaseNetPerPiece', 'Einkauf netto je Stück'],
-  ['packagingPerUnit', 'Verpackung je Verkaufseinheit'],
-  ['handlingPerUnit', 'Handling je Verkaufseinheit'],
-  ['shippingSubsidyPerUnit', 'Versandzuschuss je Verkaufseinheit'],
-];
-const FINISH_FIELDS = [
-  ['finishingPerPiece', 'Veredelung je Stück'],
-  ['setupTotal', 'Einrichtungskosten gesamt'],
-  ['setupAllocationUnits', 'Einrichtung verteilt auf … Verkaufseinheiten'],
+  ['purchaseNetPerPiece', 'Netto-Einstand je Stück'],
+  ['packagingPerUnit', 'Netto-Verpackung je Verkaufseinheit'],
+  ['handlingPerUnit', 'Netto-Handling je Verkaufseinheit'],
+  ['shippingCostNetPerUnit', 'Netto-Versandkosten je Verkaufseinheit (eigene Kosten)'],
+  ['shippingRevenueGross', 'Brutto-Versandumsatz je Verkaufseinheit (0 = kein Versand berechnet)'],
 ];
 
 export function renderCalc(ctx) {
@@ -52,7 +48,7 @@ export function renderCalc(ctx) {
     h('button', { class: 'btn', onclick: () => set(() => fees.splice(i, 1)) }, 'Gebühr entfernen'))) : [];
 
   const calcOut = h('div');
-  const result = suggestPrice({ packSize: p.sale.packSize, taxRate: p.price.taxRate, finishingRequired: p.finishing.required, costs, target: costs.target });
+  const result = suggestPrice({ packSize: p.sale.packSize, taxRate: p.price.taxRate, finishingRequired: p.finishing.required, shippingTaxSame: costs.shippingTaxSame, today: ctx.now().slice(0, 10), costs, target: costs.target });
   if (!result.ok) {
     calcOut.append(h('p', null, h('strong', null, 'Kein belastbarer Preisvorschlag möglich:')), h('ul', { class: 'plain' }, result.blockers.map((b) => h('li', { class: 'bad' }, b))));
   } else {
@@ -75,8 +71,11 @@ export function renderCalc(ctx) {
     h('h3', null, '2) Neuen Preis vorschlagen – VERTRAULICH'),
     h('p', { class: 'small' }, 'Nur lokal gespeichert, getrennt von der Arbeitsliste; wird nie in Feeds, Berichte, Exporte oder Logs übernommen. Derzeit nur Testwerte verwenden.'),
     h('p', { class: 'small muted' }, `Bezug: Paketinhalt ${p.sale.packSize ?? 'unbekannt'} Stück je Verkaufseinheit · Steuersatz ${p.price.taxRate ?? 'unbekannt'} % · Veredelung Pflicht: ${p.finishing.required ? (p.finishing.required === 'yes' ? 'ja' : 'nein') : 'unbekannt'}. Leer = unbekannt (blockiert), „0“ = bekannt und kostenlos.`),
+    h('div', { class: 'fields' }, text(costs, 'source', 'Quelle der Kostenregel'), text(costs, 'validUntil', 'Gültig bis (JJJJ-MM-TT)')),
     h('div', { class: 'fields' }, COST_FIELDS.map(([k, l]) => text(costs, k, l))),
-    p.finishing.required === 'yes' ? h('div', { class: 'fields' }, FINISH_FIELDS.map(([k, l]) => text(costs, k, l))) : null,
+    h('div', { class: 'field' }, h('label', null, 'Steuer auf Versandumsatz gleich wie auf den Artikel (bestätigt)?'),
+      h('select', { 'aria-label': 'Versandsteuer', value: costs.shippingTaxSame ?? '', onchange: (e) => set(() => { costs.shippingTaxSame = e.target.value || null; }) }, h('option', { value: '' }, 'unbekannt'), h('option', { value: 'yes' }, 'ja, bestätigt'), h('option', { value: 'no' }, 'nein (abweichend) – nicht rechenbar'))),
+    p.finishing.required === 'yes' ? oneOffEditor(costs, text, set) : null,
     h('h3', null, 'Gebühren'),
     fees === null ? h('p', { class: 'small warn' }, 'Noch unbekannt – Gebühren eintragen oder bewusst „keine Gebühren“ bestätigen.') : null,
     feeRows,
@@ -90,6 +89,16 @@ export function renderCalc(ctx) {
       h('input', { type: 'text', 'aria-label': 'Zielwert in Prozent', placeholder: 'Zielwert in %', value: costs.target?.percent ?? '', onchange: (e) => set(() => { costs.target = { ...(costs.target ?? {}), percent: e.target.value.trim() || null }; }) })),
     h('h3', null, 'Ergebnis'), calcOut));
   return wrap;
+}
+
+function oneOffEditor(costs, text, set) {
+  const o = (costs.oneOff ??= { mode: null });
+  return h('fieldset', null, h('legend', null, 'Veredelung (Pflicht)'),
+    h('div', { class: 'fields' }, text(costs, 'finishingPerPiece', 'Netto-Druck je Stück'),
+      h('div', { class: 'field' }, h('label', null, 'Einmalkosten'), h('select', { 'aria-label': 'Einmalkosten-Art', value: o.mode ?? '', onchange: (e) => set(() => { costs.oneOff = { mode: e.target.value || null }; }) },
+        h('option', { value: '' }, 'unbekannt'), h('option', { value: 'per_package' }, 'je Verkaufspaket (voll angesetzt)'), h('option', { value: 'distributed' }, 'auf Pakete verteilt (nur mit Beleg)'))),
+      o.mode === 'per_package' ? text(o, 'amount', 'Einmalkosten je Verkaufspaket') : null,
+      o.mode === 'distributed' ? [text(o, 'total', 'Einmalkosten gesamt'), text(o, 'packages', 'Verbindlich abgenommene Pakete'), text(o, 'proof', 'Beleg der verbindlichen Abnahme')] : null));
 }
 
 function stepTable(steps) {

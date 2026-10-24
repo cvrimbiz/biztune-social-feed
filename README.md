@@ -27,6 +27,7 @@ Siehe [docs/START.md](docs/START.md) (Windows und macOS). Kurz: Node.js ≥ 20 i
 | `tests/` | Tests (`node --test`) |
 
 ## Dokumente
+- [Lückenbericht](docs/LUECKENBERICHT.md)
 - [Arbeitsablauf & Roadmap](docs/ROADMAP.md)
 - [Startanleitung](docs/START.md)
 - [Internes Datenformat](docs/DATENFORMAT.md)

@@ -10,11 +10,14 @@
 - Sicherheit: Darstellung nur per `textContent`, nur http(s)-Links, CSV-Formelschutz, CSP, Server nur auf 127.0.0.1, nur GET, Host-/Pfadprüfung, keine ausgehenden Aufrufe.
 
 ## Tatsächlich getestet
-- `npm test`: 31 automatische Tests bestanden (Dezimalrechnung, Rundung, Marge/Aufschlag, Steuer 19/7/0 %, Gebühren je Basis, Paketmenge, Einrichtung, fehlende Grundlagen, Varianten, Mindestmengen, fehlende Pflichtfelder, Freigaben/Veralten, Exportsperren, CSV-Sicherheit und Roundtrip, Importfehler, Prototype-Pollution, Server-Pfad/Host, keine Kalkulationsfelder im Export, keine `console.*`).
+- `npm test`: 40 automatische Tests bestanden (Dezimalrechnung, Rundung, Marge/Aufschlag, Steuer 19/7/0 %, Gebühren je Basis, Paketmenge, Einrichtung, fehlende Grundlagen, Varianten, Mindestmengen, fehlende Pflichtfelder, Freigaben/Veralten, Exportsperren, CSV-Sicherheit und Roundtrip, Importfehler, Prototype-Pollution, Server-Pfad/Host, keine Kalkulationsfelder im Export, keine `console.*`).
 - Browser-Test mit Chromium (Playwright) unter Linux: Beispieldaten importieren, Liste, Detail, Freigaben, Kalkulation, Export-Vorschau, Bericht, Neuladen – ohne Konsolenfehler.
 
 ## Nachtrag (Amazon, Empfehlungen, Vorlagenbefüllung)
 Amazon-Adapter (Gerüst, Sperre ohne GTIN/Marke), Reiter „Empfehlungen“ (nur Vorbereitungsstand) und CSV-Vorlagenbefüllung sind ergänzt, siehe `docs/ROADMAP.md`. Excel-Vorlagen sind nicht unterstützt.
+
+## Nachtrag 2 (Übergabedatei 24.10.2026)
+Preislogik an das Übergabedokument angepasst (Definition von Marge/Aufschlag **geändert**), neue Pflichtfelder und Sperren (Veralterung, Lebensmittel/Kühlung, Bestand, Logistik, Druckkonfiguration, ASIN), Herkunftsnachweis + Plattform-Checkliste vor dem Befüllen von Vorlagen. Details: `docs/LUECKENBERICHT.md`.
 
 ## Nicht getestet / offen
 - Nicht auf Windows und macOS ausgeführt (Startskripte nur geschrieben; Linux-Test). Download-Buttons wurden nicht im Browser ausgelöst (Inhalte per Unit-Test geprüft).

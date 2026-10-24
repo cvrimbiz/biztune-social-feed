@@ -138,6 +138,11 @@ Produkte: 11
 **Fehlende/ungültige Produktdaten**
 
 - Veredelungskonfiguration unvollständig (ungültig)
+- Druckposition
+- Druckfarben
+- Druckfläche
+- Druckdaten-/Korrekturprozess
+- Angabe, ob Einmalkosten im Preis enthalten sind
 
 **Hinweise**
 
@@ -151,7 +156,7 @@ Produkte: 11
   - Freigabe „Produktdaten“ fehlt oder ist veraltet
   - Freigabe „Verkaufspreis“ fehlt oder ist veraltet
 
-**Nächster Schritt:** Produktdaten ergänzen: Veredelungskonfiguration unvollständig.
+**Nächster Schritt:** Produktdaten ergänzen: Veredelungskonfiguration unvollständig; Druckposition; Druckfarben (+3).
 
 ## SYN-005 – TESTARTIKEL Rominox-Artikel Gamma
 
@@ -210,9 +215,11 @@ Produkte: 11
 - Bildrechte nicht bestätigt
 - Paketinhalt
 - Mindestbestellmenge
+- Feste Stückliste / Inhalt des Sets
 - Veredelungspflicht
 - Kennzeichnung Lebensmittel (ja/nein)
 - Kennzeichnung Alkohol (ja/nein)
+- Kennzeichnung Kühlpflicht (ja/nein)
 - Prüfstatus Produkt-/Sicherheitsangaben
 
 **Fehlende/ungültige Preisangaben**
@@ -231,6 +238,9 @@ Produkte: 11
 - Versandregel
 - Lieferzeit
 - Verfügbarkeit
+- Bestätigte Lieferfähigkeit (auch saisonal/Produktionskapazität)
+- Versandgewicht
+- Maße
 - Landingpage-Link
 - Datum der Landingpage-Prüfung
 
@@ -243,6 +253,9 @@ Produkte: 11
   - Versandregel
   - Lieferzeit
   - Verfügbarkeit
+  - Bestätigte Lieferfähigkeit (auch saisonal/Produktionskapazität)
+  - Versandgewicht
+  - Maße
   - Landingpage-Link
   - Datum der Landingpage-Prüfung
   - Freigabe „Produktdaten“ fehlt oder ist veraltet
@@ -268,11 +281,18 @@ Produkte: 11
 **Fehlende/ungültige Produktdaten**
 
 - Prüfstatus Produkt-/Sicherheitsangaben
+- Lebensmittel: Zutaten
+- Lebensmittel: Allergene
+- Lebensmittel: Füllmenge
+- Lebensmittel: Nährwerte oder belegte Ausnahme
+- Lebensmittel: Verantwortlicher Lebensmittelunternehmer
+- Lebensmittel: Haltbarkeit/Charge
+- Lebensmittel: Lager-/Verwendungshinweise
 
 **Hinweise**
 
 - Lieferantenverfügbarkeit ist kein eigener Lagerbestand – nicht als „auf Lager“ ausweisen.
-- Lebensmittel: Kennzeichnungs-/Plattformregeln wurden nicht geprüft.
+- Lebensmittel: Kennzeichnungs-/Plattformregeln wurden nicht geprüft (Grundpreisangabe, Registrierung, Rückgabe/Widerruf, Verpackungsrollen separat prüfen).
 
 **Plattformexport (interne Vorschau)**
 
@@ -282,7 +302,7 @@ Produkte: 11
   - Freigabe „Produktdaten“ fehlt oder ist veraltet
   - Freigabe „Verkaufspreis“ fehlt oder ist veraltet
 
-**Nächster Schritt:** Produktdaten ergänzen: Prüfstatus Produkt-/Sicherheitsangaben.
+**Nächster Schritt:** Produktdaten ergänzen: Prüfstatus Produkt-/Sicherheitsangaben; Lebensmittel: Zutaten; Lebensmittel: Allergene (+5).
 
 ## SYN-008 – TESTARTIKEL Präsentset mit Alkohol
 
@@ -376,11 +396,13 @@ Produkte: 11
 - Verkaufseinheit
 - Paketinhalt
 - Mindestbestellmenge
+- Feste Stückliste / Inhalt des Sets
 - Veredelungspflicht
 - Quelle
 - Aktualisierungsdatum der Quelle
 - Kennzeichnung Lebensmittel (ja/nein)
 - Kennzeichnung Alkohol (ja/nein)
+- Kennzeichnung Kühlpflicht (ja/nein)
 - Prüfstatus Produkt-/Sicherheitsangaben
 
 **Fehlende/ungültige Preisangaben**
@@ -399,6 +421,9 @@ Produkte: 11
 - Versandregel
 - Lieferzeit
 - Verfügbarkeit
+- Bestätigte Lieferfähigkeit (auch saisonal/Produktionskapazität)
+- Versandgewicht
+- Maße
 - Landingpage-Link
 - Datum der Landingpage-Prüfung
 
@@ -411,12 +436,15 @@ Produkte: 11
   - Versandregel
   - Lieferzeit
   - Verfügbarkeit
+  - Bestätigte Lieferfähigkeit (auch saisonal/Produktionskapazität)
+  - Versandgewicht
+  - Maße
   - Landingpage-Link
   - Datum der Landingpage-Prüfung
   - Freigabe „Produktdaten“ fehlt oder ist veraltet
   - Freigabe „Verkaufspreis“ fehlt oder ist veraltet
 
-**Nächster Schritt:** Produktdaten ergänzen: SKU; Konkrete Variante; Produktlink (+11).
+**Nächster Schritt:** Produktdaten ergänzen: SKU; Konkrete Variante; Produktlink (+13).
 
 ## SYN-011 – TESTARTIKEL Rominox-Artikel Iota (Landingpage weicht ab)
 

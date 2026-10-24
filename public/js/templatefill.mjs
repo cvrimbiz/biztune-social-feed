@@ -3,6 +3,7 @@
 // Zuordnungen sind Vorschläge, die die Person bestätigt. Es wird NICHT geprüft, ob die Plattform die Datei annimmt.
 import { parseCsv, rowsToCsv } from './csv.mjs';
 import { canonicalRow, eligibility } from './exporters/common.mjs';
+import { gateProblems, provenanceProblems } from './platform.mjs';
 
 export const SOURCES = {
   offer_id: 'Artikel-/Angebots-ID', sku: 'SKU', gtin: 'GTIN', brand: 'Marke', family: 'Produktfamilie', variant: 'Variante',
@@ -57,9 +58,18 @@ export function suggestMapping(headers) {
 
 /**
  * mapping[i]: '' (leer lassen) | Quellschlüssel | 'const:Text' (fester, von der Person eingegebener Wert).
- * Es werden nur Produkte befüllt, die für diese Plattform exportfähig sind.
+ * opts.required: {index: true} – Pflichtspalten laut Plattform-Dokumentation; leere Pflichtwerte sperren das Produkt.
+ * opts.provenance / opts.platformSettings: ohne vollständigen Herkunftsnachweis der Vorlage und bestätigte
+ * Plattform-Voraussetzungen wird NICHTS erzeugt (blocked). Auch erzeugte Dateien bleiben interne Vorschau.
  */
-export function fillTemplate(template, mapping, products, adapter) {
+export function fillTemplate(template, mapping, products, adapter, opts = {}) {
+  const gate = [...provenanceProblems(opts.provenance), ...gateProblems(adapter.id, opts.platformSettings)];
+  const required = opts.required ?? {};
+  const unmapped = template.headers.map((h, i) => [h, i]).filter(([, i]) => !mapping[i]).map(([h]) => h);
+  const unmappedRequired = template.headers.map((h, i) => [h, i]).filter(([, i]) => required[i] && !mapping[i]).map(([h]) => h);
+  if (unmappedRequired.length) gate.push(`Pflichtspalten ohne Zuordnung: ${unmappedRequired.join(', ')}`);
+  if (gate.length) return { blocked: true, gate, rows: [], csv: null, filled: 0, excluded: [], unmapped };
+
   const out = [...template.preRows, template.headers];
   const excluded = [];
   let filled = 0;
@@ -67,14 +77,17 @@ export function fillTemplate(template, mapping, products, adapter) {
     const el = eligibility(adapter, p);
     if (!el.eligible) { excluded.push({ id: p.id, reasons: el.reasons }); continue; }
     const src = canonicalRow(p);
-    out.push(template.headers.map((_, i) => {
+    src.asin = p.asin;
+    const row = template.headers.map((_, i) => {
       const m = mapping[i] ?? '';
       if (m === '') return '';
       if (m.startsWith('const:')) return m.slice(6);
       return Object.hasOwn(SOURCES, m) ? (src[m] ?? '') : '';
-    }));
+    });
+    const empty = template.headers.filter((_, i) => required[i] && String(row[i]).trim() === '');
+    if (empty.length) { excluded.push({ id: p.id, reasons: [`Pflichtspalte leer: ${empty.join(', ')}`] }); continue; }
+    out.push(row);
     filled++;
   }
-  const unmapped = template.headers.map((h, i) => [h, i]).filter(([, i]) => !mapping[i]).map(([h]) => h);
-  return { rows: out, csv: rowsToCsv(out, { delimiter: template.delimiter }), filled, excluded, unmapped };
+  return { blocked: false, gate: [], rows: out, csv: rowsToCsv(out, { delimiter: template.delimiter }), filled, excluded, unmapped };
 }

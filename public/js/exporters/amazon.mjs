@@ -7,7 +7,7 @@ export const amazonAdapter = {
   id: 'amazon',
   name: 'Amazon (Marketplace) – Gerüst',
   schemaValidated: false,
-  columns: ['seller_sku', 'gtin', 'brand', 'family_ref', 'variant', 'title', 'description', 'price_gross', 'currency',
+  columns: ['seller_sku', 'gtin', 'asin', 'brand', 'family_ref', 'variant', 'title', 'description', 'price_gross', 'currency',
     'tax_rate_percent', 'sale_unit', 'pack_size', 'min_order_qty', 'finishing_config', 'image_main', 'image_additional',
     'availability_claim', 'availability_as_of', 'delivery_time', 'shipping_rule', 'product_link', 'food_flag', 'alcohol_flag'],
   // Zusätzliche Sperren: Amazon-Angebote brauchen i. d. R. Produktidentifikation und Marke – nichts wird erfunden.
@@ -20,6 +20,7 @@ export const amazonAdapter = {
   mapProduct: (p) => ({
     seller_sku: p.sku ?? p.id,
     gtin: p.gtin,
+    asin: p.asin,
     brand: p.brand,
     family_ref: p.family,
     variant: p.variant.label,

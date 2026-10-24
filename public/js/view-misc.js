@@ -7,6 +7,7 @@ import { ENUMS } from './schema.mjs';
 import { globalNextSteps } from './rules.mjs';
 import { rankAll } from './recommend.mjs';
 import { parseTemplate, suggestMapping, fillTemplate, SOURCES } from './templatefill.mjs';
+import { CHECKS, PROVENANCE_FIELDS, provenanceProblems, gateProblems, sha256Hex } from './platform.mjs';
 
 const scopeProducts = (state, scope) => (scope === 'selected' ? state.products.filter((p) => state.selected.has(p.id)) : state.products);
 
@@ -41,7 +42,7 @@ export function renderExport(ctx) {
       h('details', null, h('summary', null, 'Fehlende Originalvorlagen / Angaben'),
         h('p', { class: 'small' }, 'Vorlagen und Dokumente, die noch fehlen:'), h('ul', { class: 'plain small' }, a.missingTemplates.map((t) => h('li', null, t))),
         h('p', { class: 'small' }, 'Bisher unbekannte Pflichtfelder:'), h('ul', { class: 'plain small' }, a.unknownRequiredFields.map((t) => h('li', null, t)))));
-    card.append(templateSection(ctx, a, products));
+    card.append(checklist(ctx, a), templateSection(ctx, a, products));
     if (shown === a.id) {
       card.append(
         h('h3', null, 'Vorschau-Zeilen'),
@@ -55,39 +56,62 @@ export function renderExport(ctx) {
   return wrap;
 }
 
-const tpl = {}; // je Adapter: {text, name, headerRow, mapping, msg}
+const tpl = {}; // je Adapter: {text, name, headerRow, mapping, required, prov, msg}
+
+function checklist(ctx, a) {
+  const settings = store.loadPlatform();
+  const cur = settings[a.id] ?? {};
+  return h('details', null, h('summary', null, `Plattform-Voraussetzungen (${gateProblems(a.id, settings).length} offen)`),
+    h('p', { class: 'small' }, 'Nichts hiervon wird angenommen. Erst wenn alles bestätigt ist, darf eine Plattformvorlage befüllt werden.'),
+    CHECKS[a.id].map(([k, l]) => h('div', { class: 'field' }, h('label', null, l),
+      h('select', { 'aria-label': l, value: cur[k] ?? '', onchange: (e) => { const all = store.loadPlatform(); all[a.id] = { ...(all[a.id] ?? {}), [k]: e.target.value || null }; store.savePlatform(all); ctx.rerender(); } },
+        h('option', { value: '' }, 'unbekannt'), h('option', { value: 'yes' }, 'ja, bestätigt'), h('option', { value: 'no' }, 'nein')))));
+}
 
 function templateSection(ctx, a, products) {
-  const t = (tpl[a.id] ??= { headerRow: 1 });
+  const t = (tpl[a.id] ??= { headerRow: 1, prov: { marketDE: false }, required: {} });
   const box = h('details', { open: !!t.text }, h('summary', null, 'Heruntergeladene Original-Vorlage (CSV) befüllen'));
   box.append(h('p', { class: 'small' }, 'Vorlage von der Plattform laden (als CSV; Excel-Vorlagen zuerst als CSV speichern – dabei können Formatierungen/Auswahllisten der Plattform verloren gehen, siehe docs/ROADMAP.md). Die Datei bleibt unverändert, es werden nur Datenzeilen für exportfähige Produkte ergänzt. Zuordnungen sind Vorschläge – bitte prüfen. Ob die Plattform die Datei annimmt, wird NICHT geprüft.'));
   const msg = h('p', { class: 'err', role: 'alert' }, t.msg ?? '');
   const load = (text, name) => {
     try {
       const tmpl = parseTemplate(text, t.headerRow);
-      const key = tmpl.headers.join('|');
-      const saved = store.loadMappings()[`${a.id}:${key}`];
-      Object.assign(t, { text, name, template: tmpl, mapping: saved ?? suggestMapping(tmpl.headers), msg: '' });
+      const saved = store.loadMappings()[`${a.id}:${tmpl.headers.join('|')}`];
+      Object.assign(t, { text, name, template: tmpl, mapping: saved?.map ?? suggestMapping(tmpl.headers), required: saved?.required ?? {}, msg: '' });
     } catch (e) { Object.assign(t, { template: null, msg: `Vorlage nicht lesbar: ${e.message}` }); }
     ctx.rerender();
   };
   box.append(h('div', { class: 'row' },
-    h('input', { type: 'file', accept: '.csv,text/csv', 'aria-label': `Vorlage ${a.name}`, onchange: async (e) => { const f = e.target.files?.[0]; if (f && f.size <= 5_000_000) { t.name = f.name; load(await readFileText(f), f.name); } else if (f) { t.msg = 'Datei zu groß'; ctx.rerender(); } } }),
+    h('input', { type: 'file', accept: '.csv,text/csv', 'aria-label': `Vorlage ${a.name}`, onchange: async (e) => {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      if (f.size > 5_000_000) { t.msg = 'Datei zu groß'; ctx.rerender(); return; }
+      const buf = await f.arrayBuffer();
+      t.prov.sha256 = await sha256Hex(buf);
+      t.prov.fileName = f.name;
+      load(new TextDecoder('utf-8').decode(buf), f.name);
+    } }),
     h('label', { class: 'small' }, 'Kopfzeile in Zeile ', h('input', { type: 'text', value: String(t.headerRow), 'aria-label': 'Kopfzeile', onchange: (e) => { t.headerRow = Number(e.target.value) || 1; if (t.text) load(t.text, t.name); } }))), msg);
   if (t.template) {
     const m = t.mapping;
-    const persist = () => { const all = store.loadMappings(); all[`${a.id}:${t.template.headers.join('|')}`] = m; store.saveMappings(all); };
+    const persist = () => { const all = store.loadMappings(); all[`${a.id}:${t.template.headers.join('|')}`] = { map: m, required: t.required }; store.saveMappings(all); };
+    box.append(h('fieldset', null, h('legend', null, 'Herkunft der Vorlage (Pflicht)'),
+      h('p', { class: 'small' }, `Datei: ${t.prov.fileName ?? ''} · SHA-256: ${t.prov.sha256 ?? ''}`),
+      h('label', { class: 'small' }, h('input', { type: 'checkbox', checked: t.prov.marketDE === true, onchange: (e) => { t.prov.marketDE = e.target.checked; ctx.rerender(); } }), ' Vorlage gilt für den deutschen Markt (DE)'),
+      h('div', { class: 'fields' }, PROVENANCE_FIELDS.map(([k, l]) => h('div', { class: 'field' }, h('label', null, l), h('input', { type: 'text', value: t.prov[k] ?? '', 'aria-label': l, onchange: (e) => { t.prov[k] = e.target.value.trim(); ctx.rerender(); } }))))));
     box.append(h('div', { class: 'tablewrap' }, h('table', null,
-      h('thead', null, h('tr', null, ['Spalte der Vorlage', 'Befüllen mit', 'Oder fester Wert'].map((x) => h('th', null, x)))),
+      h('thead', null, h('tr', null, ['Spalte der Vorlage', 'Pflicht laut Plattform', 'Befüllen mit', 'Oder fester Wert'].map((x) => h('th', null, x)))),
       h('tbody', null, t.template.headers.map((hd, i) => h('tr', null,
         h('td', null, hd || h('em', { class: 'muted' }, '(ohne Name)')),
+        h('td', null, h('input', { type: 'checkbox', 'aria-label': `Pflicht ${hd}`, checked: !!t.required[i], onchange: (e) => { t.required[i] = e.target.checked; persist(); ctx.rerender(); } })),
         h('td', null, h('select', { 'aria-label': `Zuordnung ${hd}`, value: m[i]?.startsWith('const:') ? '' : (m[i] ?? ''), onchange: (e) => { m[i] = e.target.value; persist(); ctx.rerender(); } },
           h('option', { value: '' }, '– leer lassen –'), Object.entries(SOURCES).map(([k, l]) => h('option', { value: k }, l)))),
         h('td', null, h('input', { type: 'text', 'aria-label': `Festwert ${hd}`, value: m[i]?.startsWith('const:') ? m[i].slice(6) : '', onchange: (e) => { m[i] = e.target.value ? `const:${e.target.value}` : ''; persist(); ctx.rerender(); } }))))))));
-    const res = fillTemplate(t.template, m, products, a);
-    box.append(h('p', { class: 'small' }, `${res.filled} Produkt(e) würden eingetragen, ${res.excluded.length} sind gesperrt. Nicht befüllte Spalten: ${res.unmapped.length ? res.unmapped.join(', ') : 'keine'} – diese bleiben leer und müssen ggf. von Hand ergänzt werden.`),
-      h('div', { class: 'preview' }, 'INTERNE VORSCHAU – Zielschema nicht validiert'),
-      h('button', { class: 'btn', disabled: !res.filled, onclick: () => download(`VORSCHAU-INTERN_${a.id}_befuellt.csv`, res.csv, 'text/csv') }, 'Befüllte Vorlage (Vorschau) laden'));
+    const res = fillTemplate(t.template, m, products, a, { provenance: t.prov, platformSettings: store.loadPlatform(), required: t.required });
+    if (res.blocked) box.append(h('p', null, h('strong', null, 'Befüllen gesperrt:')), h('ul', { class: 'plain small' }, res.gate.map((g) => h('li', { class: 'bad' }, g))));
+    else box.append(h('p', { class: 'small' }, `${res.filled} Produkt(e) würden eingetragen, ${res.excluded.length} sind gesperrt. Nicht befüllte Spalten: ${res.unmapped.length ? res.unmapped.join(', ') : 'keine'} – diese bleiben leer.`));
+    box.append(h('div', { class: 'preview' }, 'INTERNE VORSCHAU – Zielschema nicht validiert'),
+      h('button', { class: 'btn', disabled: res.blocked || !res.filled, onclick: () => download(`VORSCHAU-INTERN_${a.id}_befuellt.csv`, res.csv, 'text/csv') }, 'Befüllte Vorlage (Vorschau) laden'));
   }
   return box;
 }

@@ -7,6 +7,8 @@
       "id": "SYN-001",
       "sku": "SYN-SKU-001",
       "gtin": "2000000000015",
+      "asin": null,
+      "asinProof": null,
       "brandLine": "roemer_praesentset",
       "brand": "TESTMARKE (synthetisch)",
       "family": "Testfamilie Alpha",
@@ -26,13 +28,19 @@
       "sale": {
         "unit": "Set",
         "packSize": 1,
-        "minOrderQty": 1
+        "minOrderQty": 1,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
       },
       "inquiryOnly": "no",
       "finishing": {
         "required": "no",
         "offeredConfig": null,
-        "configComplete": null
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
       },
       "price": {
         "net": "25.00",
@@ -49,7 +57,15 @@
       "availability": {
         "status": "supplier_available",
         "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
-        "asOf": "2026-10-01"
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
       },
       "landing": {
         "url": "https://example.invalid/shop/SYN-001",
@@ -60,11 +76,21 @@
       },
       "flags": {
         "food": "no",
-        "alcohol": "no"
+        "alcohol": "no",
+        "chilled": "no"
       },
       "compliance": {
         "status": "not_required",
         "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
       },
       "source": {
         "name": "SYNTHETISCH (Beispielgenerator)",
@@ -80,7 +106,7 @@
           "approved": true,
           "by": "Beispiel-Prüfer",
           "at": "2026-10-01T09:00:00Z",
-          "fingerprint": "125b63f6"
+          "fingerprint": "76150f53"
         },
         "price": {
           "approved": true,
@@ -92,7 +118,7 @@
           "approved": true,
           "by": "Beispiel-Prüfer",
           "at": "2026-10-01T09:00:00Z",
-          "fingerprint": "0ac4db56"
+          "fingerprint": "19197b96"
         }
       },
       "synthetic": true
@@ -101,6 +127,8 @@
       "id": "SYN-002",
       "sku": "SYN-SKU-002",
       "gtin": null,
+      "asin": null,
+      "asinProof": null,
       "brandLine": "roemer_praesentset",
       "brand": null,
       "family": "Testfamilie Alpha",
@@ -120,13 +148,19 @@
       "sale": {
         "unit": "Set",
         "packSize": 1,
-        "minOrderQty": 1
+        "minOrderQty": 1,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
       },
       "inquiryOnly": "no",
       "finishing": {
         "required": "no",
         "offeredConfig": null,
-        "configComplete": null
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
       },
       "price": {
         "net": "27.50",
@@ -143,7 +177,15 @@
       "availability": {
         "status": "supplier_available",
         "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
-        "asOf": "2026-10-01"
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
       },
       "landing": {
         "url": "https://example.invalid/shop/SYN-002",
@@ -154,11 +196,21 @@
       },
       "flags": {
         "food": "no",
-        "alcohol": "no"
+        "alcohol": "no",
+        "chilled": "no"
       },
       "compliance": {
         "status": "not_required",
         "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
       },
       "source": {
         "name": "SYNTHETISCH (Beispielgenerator)",
@@ -195,6 +247,8 @@
       "id": "SYN-003",
       "sku": "SYN-SKU-003",
       "gtin": null,
+      "asin": null,
+      "asinProof": null,
       "brandLine": "roemer_praesentset",
       "brand": null,
       "family": "Testfamilie Beta",
@@ -214,13 +268,19 @@
       "sale": {
         "unit": "Packung",
         "packSize": 6,
-        "minOrderQty": 2
+        "minOrderQty": 2,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
       },
       "inquiryOnly": "no",
       "finishing": {
         "required": "no",
         "offeredConfig": null,
-        "configComplete": null
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
       },
       "price": {
         "net": "48.00",
@@ -237,7 +297,15 @@
       "availability": {
         "status": "supplier_available",
         "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
-        "asOf": "2026-10-01"
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
       },
       "landing": {
         "url": "https://example.invalid/shop/SYN-003",
@@ -248,11 +316,21 @@
       },
       "flags": {
         "food": "no",
-        "alcohol": "no"
+        "alcohol": "no",
+        "chilled": "no"
       },
       "compliance": {
         "status": "not_required",
         "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
       },
       "source": {
         "name": "SYNTHETISCH (Beispielgenerator)",
@@ -289,6 +367,8 @@
       "id": "SYN-004",
       "sku": "SYN-SKU-004",
       "gtin": null,
+      "asin": null,
+      "asinProof": null,
       "brandLine": "roemer_praesentset",
       "brand": null,
       "family": "Testfamilie Beta",
@@ -308,13 +388,19 @@
       "sale": {
         "unit": "Set",
         "packSize": 1,
-        "minOrderQty": 1
+        "minOrderQty": 1,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
       },
       "inquiryOnly": "no",
       "finishing": {
         "required": "yes",
         "offeredConfig": "Gravur, Position offen",
-        "configComplete": "no"
+        "configComplete": "no",
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
       },
       "price": {
         "net": "39.90",
@@ -331,7 +417,15 @@
       "availability": {
         "status": "supplier_available",
         "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
-        "asOf": "2026-10-01"
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
       },
       "landing": {
         "url": "https://example.invalid/shop/SYN-004",
@@ -342,11 +436,21 @@
       },
       "flags": {
         "food": "no",
-        "alcohol": "no"
+        "alcohol": "no",
+        "chilled": "no"
       },
       "compliance": {
         "status": "not_required",
         "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
       },
       "source": {
         "name": "SYNTHETISCH (Beispielgenerator)",
@@ -383,6 +487,8 @@
       "id": "SYN-005",
       "sku": "SYN-SKU-005",
       "gtin": null,
+      "asin": null,
+      "asinProof": null,
       "brandLine": "rominox",
       "brand": null,
       "family": "Testfamilie Gamma",
@@ -402,13 +508,19 @@
       "sale": {
         "unit": "Set",
         "packSize": 1,
-        "minOrderQty": 1
+        "minOrderQty": 1,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
       },
       "inquiryOnly": "no",
       "finishing": {
         "required": "no",
         "offeredConfig": null,
-        "configComplete": null
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
       },
       "price": {
         "net": "12.40",
@@ -425,7 +537,15 @@
       "availability": {
         "status": "supplier_available",
         "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
-        "asOf": "2026-10-01"
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
       },
       "landing": {
         "url": "https://example.invalid/shop/SYN-005",
@@ -436,11 +556,21 @@
       },
       "flags": {
         "food": "no",
-        "alcohol": "no"
+        "alcohol": "no",
+        "chilled": "no"
       },
       "compliance": {
         "status": "not_required",
         "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
       },
       "source": {
         "name": "SYNTHETISCH (Beispielgenerator)",
@@ -477,6 +607,8 @@
       "id": "SYN-006",
       "sku": null,
       "gtin": null,
+      "asin": null,
+      "asinProof": null,
       "brandLine": "rominox",
       "brand": null,
       "family": "Testfamilie Delta",
@@ -494,13 +626,19 @@
       "sale": {
         "unit": "Stück",
         "packSize": null,
-        "minOrderQty": null
+        "minOrderQty": null,
+        "components": null
       },
       "inquiryOnly": "yes",
       "finishing": {
         "required": null,
         "offeredConfig": null,
-        "configComplete": null
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
       },
       "price": {
         "net": null,
@@ -517,7 +655,15 @@
       "availability": {
         "status": null,
         "evidence": null,
-        "asOf": null
+        "asOf": null,
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": null
+      },
+      "logistics": {
+        "weightGrams": null,
+        "dimensionsMm": null
       },
       "landing": {
         "url": null,
@@ -528,11 +674,21 @@
       },
       "flags": {
         "food": null,
-        "alcohol": null
+        "alcohol": null,
+        "chilled": null
       },
       "compliance": {
         "status": null,
         "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
       },
       "source": {
         "name": "SYNTHETISCH (Beispielgenerator)",
@@ -569,6 +725,8 @@
       "id": "SYN-007",
       "sku": "SYN-SKU-007",
       "gtin": null,
+      "asin": null,
+      "asinProof": null,
       "brandLine": "other",
       "brand": null,
       "family": "Testfamilie Epsilon",
@@ -588,13 +746,19 @@
       "sale": {
         "unit": "Set",
         "packSize": 1,
-        "minOrderQty": 1
+        "minOrderQty": 1,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
       },
       "inquiryOnly": "no",
       "finishing": {
         "required": "no",
         "offeredConfig": null,
-        "configComplete": null
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
       },
       "price": {
         "net": "14.95",
@@ -611,7 +775,15 @@
       "availability": {
         "status": "supplier_available",
         "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
-        "asOf": "2026-10-01"
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
       },
       "landing": {
         "url": "https://example.invalid/shop/SYN-007",
@@ -622,11 +794,21 @@
       },
       "flags": {
         "food": "yes",
-        "alcohol": "no"
+        "alcohol": "no",
+        "chilled": "no"
       },
       "compliance": {
         "status": null,
         "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
       },
       "source": {
         "name": "SYNTHETISCH (Beispielgenerator)",
@@ -663,6 +845,8 @@
       "id": "SYN-008",
       "sku": "SYN-SKU-008",
       "gtin": null,
+      "asin": null,
+      "asinProof": null,
       "brandLine": "other",
       "brand": null,
       "family": "Testfamilie Zeta",
@@ -682,13 +866,19 @@
       "sale": {
         "unit": "Set",
         "packSize": 1,
-        "minOrderQty": 1
+        "minOrderQty": 1,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
       },
       "inquiryOnly": "no",
       "finishing": {
         "required": "no",
         "offeredConfig": null,
-        "configComplete": null
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
       },
       "price": {
         "net": "33.00",
@@ -705,7 +895,15 @@
       "availability": {
         "status": "supplier_available",
         "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
-        "asOf": "2026-10-01"
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
       },
       "landing": {
         "url": "https://example.invalid/shop/SYN-008",
@@ -716,11 +914,21 @@
       },
       "flags": {
         "food": "no",
-        "alcohol": "yes"
+        "alcohol": "yes",
+        "chilled": "no"
       },
       "compliance": {
         "status": "checked",
         "notes": "SYNTHETISCH: Testvermerk"
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
       },
       "source": {
         "name": "SYNTHETISCH (Beispielgenerator)",
@@ -736,7 +944,7 @@
           "approved": true,
           "by": "Beispiel-Prüfer",
           "at": "2026-10-01T09:00:00Z",
-          "fingerprint": "e790537d"
+          "fingerprint": "b1ce1ffa"
         },
         "price": {
           "approved": false,
@@ -757,6 +965,8 @@
       "id": "SYN-009",
       "sku": "SYN-SKU-009",
       "gtin": null,
+      "asin": null,
+      "asinProof": null,
       "brandLine": "roemer_praesentset",
       "brand": null,
       "family": "Testfamilie Eta",
@@ -776,13 +986,19 @@
       "sale": {
         "unit": "Set",
         "packSize": 1,
-        "minOrderQty": 1
+        "minOrderQty": 1,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
       },
       "inquiryOnly": "no",
       "finishing": {
         "required": "no",
         "offeredConfig": null,
-        "configComplete": null
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
       },
       "price": {
         "net": "19.00",
@@ -799,7 +1015,15 @@
       "availability": {
         "status": "supplier_available",
         "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
-        "asOf": "2026-10-01"
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
       },
       "landing": {
         "url": "https://example.invalid/shop/SYN-009",
@@ -810,11 +1034,21 @@
       },
       "flags": {
         "food": "no",
-        "alcohol": "no"
+        "alcohol": "no",
+        "chilled": "no"
       },
       "compliance": {
         "status": "not_required",
         "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
       },
       "source": {
         "name": "SYNTHETISCH (Beispielgenerator)",
@@ -851,6 +1085,8 @@
       "id": "SYN-010",
       "sku": null,
       "gtin": null,
+      "asin": null,
+      "asinProof": null,
       "brandLine": "other",
       "brand": null,
       "family": "Testfamilie Theta",
@@ -868,13 +1104,19 @@
       "sale": {
         "unit": null,
         "packSize": null,
-        "minOrderQty": null
+        "minOrderQty": null,
+        "components": null
       },
       "inquiryOnly": null,
       "finishing": {
         "required": null,
         "offeredConfig": null,
-        "configComplete": null
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
       },
       "price": {
         "net": null,
@@ -891,7 +1133,15 @@
       "availability": {
         "status": null,
         "evidence": null,
-        "asOf": null
+        "asOf": null,
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": null
+      },
+      "logistics": {
+        "weightGrams": null,
+        "dimensionsMm": null
       },
       "landing": {
         "url": null,
@@ -902,11 +1152,21 @@
       },
       "flags": {
         "food": null,
-        "alcohol": null
+        "alcohol": null,
+        "chilled": null
       },
       "compliance": {
         "status": null,
         "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
       },
       "source": {
         "name": null,
@@ -943,6 +1203,8 @@
       "id": "SYN-011",
       "sku": "SYN-SKU-011",
       "gtin": null,
+      "asin": null,
+      "asinProof": null,
       "brandLine": "rominox",
       "brand": null,
       "family": "Testfamilie Iota",
@@ -962,13 +1224,19 @@
       "sale": {
         "unit": "Set",
         "packSize": 1,
-        "minOrderQty": 1
+        "minOrderQty": 1,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
       },
       "inquiryOnly": "no",
       "finishing": {
         "required": "no",
         "offeredConfig": null,
-        "configComplete": null
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
       },
       "price": {
         "net": "9.90",
@@ -985,7 +1253,15 @@
       "availability": {
         "status": "supplier_available",
         "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
-        "asOf": "2026-10-01"
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
       },
       "landing": {
         "url": "https://example.invalid/shop/SYN-011",
@@ -996,11 +1272,21 @@
       },
       "flags": {
         "food": "no",
-        "alcohol": "no"
+        "alcohol": "no",
+        "chilled": "no"
       },
       "compliance": {
         "status": "not_required",
         "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
       },
       "source": {
         "name": "SYNTHETISCH (Beispielgenerator)",

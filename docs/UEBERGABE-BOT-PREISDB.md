@@ -18,3 +18,6 @@ Für Export: `inquiryOnly`, `shipping.rule`, `shipping.deliveryTime`, `availabil
 
 ## Zusätzlich für Amazon
 `brand` (nur belegt) und `gtin` (nur belegt) – ohne beides sperrt der Amazon-Adapter. Hilfreich für Empfehlungen (später): bestehende ASINs und Verkaufszahlen aus dem Amazon-Konto als eigene Datei; Format wird abgestimmt, sobald ein echter Bericht vorliegt.
+
+## Zusätzlich aus der Übergabedatei vom 24.10.2026 (neue Felder)
+`sale.components` (feste Stückliste), `logistics.weightGrams`, `logistics.dimensionsMm`, `availability.capacityConfirmed`, bei eigenem Bestand `availability.reservedQty/location/sla`, `flags.chilled`, bei Lebensmitteln alle `food.*`-Felder, bei Pflichtveredelung `finishing.printPosition/printColors/printArea/artworkProcess/oneOffIncluded`, optional `asin` + `asinProof`. Kostenwerte weiterhin **nicht** liefern; sie bleiben im lokalen Kalkulationsbereich.

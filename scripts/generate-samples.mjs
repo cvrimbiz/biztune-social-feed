@@ -35,6 +35,9 @@ function complete(id, o) {
     'landing.url': `https://example.invalid/shop/${id}`, 'landing.checkedAt': DAY,
     'landing.variant': o['variant.label'], 'landing.qty': o['sale.minOrderQty'] ?? 1,
     'landing.price': net ? grossFromNet(net, rate).gross : null,
+    'sale.components': 'TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)',
+    'flags.chilled': 'no', 'availability.capacityConfirmed': 'yes',
+    'logistics.weightGrams': 800, 'logistics.dimensionsMm': '200×150×60',
     'workflow.status': 'review',
   };
   return make(id, { ...base, ...o });
@@ -73,15 +76,16 @@ await writeFile(new URL('../data/sample-products.json', import.meta.url), JSON.s
 
 // Vertrauliche Kalkulation: ebenfalls nur Testwerte, getrennte Datei.
 const fees = [
-  { name: 'Testgebühr Plattform', basis: 'net_price', ratePercent: '5' },
-  { name: 'Testgebühr Zahlung', basis: 'gross_price', ratePercent: '2.5' },
+  { name: 'Testgebühr Plattform', basis: 'net_item', ratePercent: '5' },
+  { name: 'Testgebühr Zahlung', basis: 'gross_total', ratePercent: '2.5' },
   { name: 'Testpauschale je Bestellung', basis: 'fixed_per_order', amount: '0.30', unitsPerOrder: 1 },
 ];
+const common = { source: 'SYNTHETISCHE Testregel', validUntil: '2026-12-31', packagingPerUnit: '0.50', handlingPerUnit: '1.00', shippingCostNetPerUnit: '4.20', shippingRevenueGross: '0', shippingTaxSame: 'yes' };
 const costs = {
-  'SYN-001': { purchaseNetPerPiece: '10.00', packagingPerUnit: '0.50', handlingPerUnit: '1.00', shippingSubsidyPerUnit: '2.00', fees, target: { type: 'margin', percent: '30' } },
-  'SYN-002': { purchaseNetPerPiece: '11.00', packagingPerUnit: '0.50', handlingPerUnit: '1.00', shippingSubsidyPerUnit: '2.00', fees: [], target: { type: 'markup', percent: '40' } },
-  'SYN-004': { purchaseNetPerPiece: '15.00', finishingPerPiece: '2.00', setupTotal: '60.00', setupAllocationUnits: 30, packagingPerUnit: '0.50', handlingPerUnit: '1.00', shippingSubsidyPerUnit: '2.00', fees, target: { type: 'margin', percent: '25' } },
-  'SYN-005': { purchaseNetPerPiece: '5.00', packagingPerUnit: '0.30', handlingPerUnit: '0.80', shippingSubsidyPerUnit: '0', fees: null, target: { type: 'margin', percent: '35' } },
+  'SYN-001': { ...common, purchaseNetPerPiece: '10.00', fees, target: { type: 'margin', percent: '30' } },
+  'SYN-002': { ...common, purchaseNetPerPiece: '11.00', fees: [], target: { type: 'markup', percent: '40' } },
+  'SYN-004': { ...common, purchaseNetPerPiece: '15.00', finishingPerPiece: '2.00', oneOff: { mode: 'distributed', total: '60.00', packages: 30, proof: 'SYNTHETISCH: Testbeleg Abnahmezusage' }, fees, target: { type: 'margin', percent: '25' } },
+  'SYN-005': { ...common, purchaseNetPerPiece: '5.00', shippingCostNetPerUnit: '0', fees: null, target: { type: 'margin', percent: '35' } },
 };
 await writeFile(new URL('../data/sample-costs.json', import.meta.url), JSON.stringify({ _hinweis: 'SYNTHETISCHE TESTWERTE – keine echten Einkaufspreise oder Margen. Vertraulicher Kalkulationsbereich, nie in Feeds.', costs }, null, 2) + '\n');
 console.log(`${list.length} synthetische Produkte geschrieben.`);

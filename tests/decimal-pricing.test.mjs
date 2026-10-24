@@ -45,56 +45,81 @@ test('Preisprüfung: fehlende Steuer wird nicht unterstellt, Widerspruch erkannt
 });
 
 const base = (over = {}) => ({
-  packSize: 1, taxRate: '19', finishingRequired: 'no',
-  costs: { purchaseNetPerPiece: '10', packagingPerUnit: '0', handlingPerUnit: '0', shippingSubsidyPerUnit: '0', fees: [] },
+  packSize: 1, taxRate: '19', finishingRequired: 'no', shippingTaxSame: 'yes', today: '2026-10-24',
+  costs: { source: 'Testregel (synthetisch)', validUntil: '2026-12-31', purchaseNetPerPiece: '100', packagingPerUnit: '0', handlingPerUnit: '0',
+    shippingCostNetPerUnit: '0', shippingRevenueGross: '0', fees: [] },
   target: { type: 'margin', percent: '20' }, ...over,
 });
+const withCosts = (c, extra = {}) => base({ costs: { ...base().costs, ...c }, ...extra });
 
-test('Marge ≠ Aufschlag: Kosten 100', () => {
-  const m = suggestPrice(base({ costs: { ...base().costs, purchaseNetPerPiece: '100' } }));
-  assert.equal(m.netPrice, '125.00'); // 20 % Marge
-  const k = suggestPrice(base({ costs: { ...base().costs, purchaseNetPerPiece: '100' }, target: { type: 'markup', percent: '20' } }));
-  assert.equal(k.netPrice, '120.00'); // 20 % Aufschlag
+test('Marge ≠ Aufschlag (Übergabedokument): Kosten 100, Steuer 19 %', () => {
+  const m = suggestPrice(base());
+  assert.equal(m.netPrice, '125.00'); assert.equal(m.grossPrice, '148.75'); // (R−F)(1−0,2) ≥ C
   assert.equal(m.marginPercent, '20.00'); assert.equal(m.markupPercent, '25.00');
+  const k = suggestPrice(base({ target: { type: 'markup', percent: '20' } })); // R−F ≥ C×1,2
+  assert.equal(k.netPrice, '120.00'); assert.equal(k.grossPrice, '142.80');
   assert.equal(k.marginPercent, '16.67'); assert.equal(k.markupPercent, '20.00');
-  assert.equal(m.grossPrice, '148.75');
 });
-test('Paketmenge multipliziert Einkauf', () => {
-  const r = suggestPrice(base({ packSize: 6, costs: { ...base().costs, purchaseNetPerPiece: '2.50' }, target: { type: 'markup', percent: '0' } }));
-  assert.equal(r.netPrice, '15.00');
+test('Gebühr auf Brutto-Artikelpreis: kleinster Cent-Preis, von Hand nachgerechnet', () => {
+  // 0,881·G·0,8 ≥ 119  →  G ≥ 168,842…; kleinster Netto-Cent mit gerundetem Brutto ≥ 168,85 ist 141,89
+  const r = suggestPrice(withCosts({ fees: [{ name: 'T', basis: 'gross_item', ratePercent: '10' }] }));
+  assert.equal(r.netPrice, '141.89'); assert.equal(r.grossPrice, '168.85');
+  assert.ok(Dec.parse(r.marginPercent).gte('20'));
+  assert.ok(r.steps.some((s) => s.label === 'Prüfung' && s.value === 'bestanden'));
 });
-test('Gebühren mit unterschiedlicher Basis', () => {
-  const costs = { ...base().costs, purchaseNetPerPiece: '100', fees: [{ name: 'a', basis: 'net_price', ratePercent: '10' }] };
-  const net = suggestPrice(base({ costs })); // P = 100/(1-0.1-0.2)
-  assert.equal(net.netPrice, '142.86');
-  const gross = suggestPrice(base({ costs: { ...costs, fees: [{ name: 'b', basis: 'gross_price', ratePercent: '10' }] } })); // φ=0.119
-  assert.equal(gross.netPrice, '146.85'); // 100 / 0,681 = 146,842… → aufgerundet
+test('Versandumsatz S: R = (G+S)/(1+t)', () => {
+  const r = suggestPrice(withCosts({ shippingRevenueGross: '5.95' }));
+  assert.equal(r.netPrice, '120.00'); assert.equal(r.grossPrice, '142.80'); // G+5,95 ≥ 148,75
+  assert.equal(suggestPrice(withCosts({ shippingRevenueGross: '5.95' }, { shippingTaxSame: null })).ok, false); // Steuer auf Versand unbestätigt
 });
-test('Festgebühr je Bestellung, anteilige Einrichtung, Veredelung', () => {
-  const r = suggestPrice(base({ finishingRequired: 'yes', costs: { ...base().costs, purchaseNetPerPiece: '10', finishingPerPiece: '2', setupTotal: '60', setupAllocationUnits: 30,
-    fees: [{ name: 'f', basis: 'fixed_per_order', amount: '0.60', unitsPerOrder: 2 }] }, target: { type: 'markup', percent: '0' } }));
-  assert.equal(r.costBase, '14.000000'); // 10 + 2 + 2
-  assert.equal(r.netPrice, '14.30');
+test('Gebühren mit unterschiedlicher Basis werden umgerechnet, nicht addiert', () => {
+  const a = suggestPrice(withCosts({ fees: [{ name: 'a', basis: 'net_item', ratePercent: '11.9' }] }));
+  const b = suggestPrice(withCosts({ fees: [{ name: 'b', basis: 'gross_item', ratePercent: '10' }] }));
+  assert.equal(a.netPrice, b.netPrice); // 11,9 % vom Netto ≙ 10 % vom Brutto bei 19 % Steuer
+  const mixed = suggestPrice(withCosts({ fees: [{ name: 'a', basis: 'net_item', ratePercent: '10' }, { name: 'b', basis: 'gross_item', ratePercent: '10' }] }));
+  const naive = suggestPrice(withCosts({ fees: [{ name: 'c', basis: 'gross_item', ratePercent: '20' }] }));
+  assert.notEqual(mixed.netPrice, naive.netPrice); // nicht schlicht 10 % + 10 %
+  const fixed = suggestPrice(withCosts({ fees: [{ name: 'f', basis: 'fixed_per_order', amount: '0.60', unitsPerOrder: 2 }] }));
+  assert.equal(fixed.ok, true);
 });
-test('Ergebnis unterschreitet das Ziel nie (Aufrunden)', () => {
-  for (const pct of ['7', '13.5', '33.3', '41']) {
-    const r = suggestPrice(base({ costs: { ...base().costs, purchaseNetPerPiece: '7.77', fees: [{ name: 'a', basis: 'net_price', ratePercent: '3.3' }] }, target: { type: 'margin', percent: pct } }));
-    assert.ok(Dec.parse(r.marginPercent).gte(Dec.parse(pct).sub('0.005')), `${pct}: ${r.marginPercent}`);
+test('Paketmenge, Druck, Einmalkosten (nur mit Beleg verteilen)', () => {
+  const fin = { purchaseNetPerPiece: '2.50', finishingPerPiece: '0.40', oneOff: { mode: 'per_package', amount: '5' } };
+  const r = suggestPrice(withCosts(fin, { packSize: 6, finishingRequired: 'yes', target: { type: 'markup', percent: '0' } }));
+  assert.equal(r.costBase, '22.40'); assert.equal(r.netPrice, '22.40');
+  const dist = (proof) => suggestPrice(withCosts({ ...fin, oneOff: { mode: 'distributed', total: '60', packages: 30, proof } }, { packSize: 6, finishingRequired: 'yes' }));
+  assert.equal(dist('').ok, false);
+  assert.equal(dist('Abnahmezusage 30 Pakete (Test)').costBase, '19.400000');
+  assert.equal(suggestPrice(withCosts({ purchaseNetPerPiece: '2.50', finishingPerPiece: '0.40' }, { finishingRequired: 'yes' })).ok, false); // Einmalkosten fehlen
+});
+test('Ergebnis unterschreitet das Ziel nie, ein Cent weniger schon', () => {
+  for (const pct of ['7', '13.5', '33.3', '41']) for (const type of ['margin', 'markup']) {
+    const c = { purchaseNetPerPiece: '7.77', handlingPerUnit: '1.13', fees: [{ name: 'a', basis: 'gross_total', ratePercent: '3.3' }], shippingRevenueGross: '4.90' };
+    const r = suggestPrice(withCosts(c, { target: { type, percent: pct } }));
+    assert.equal(r.ok, true);
+    const got = Dec.parse(type === 'margin' ? r.marginPercent : r.markupPercent);
+    assert.ok(got.gte(Dec.parse(pct).sub('0.005')), `${type} ${pct}: ${got}`);
   }
 });
-test('Fehlende Grundlagen blockieren – nichts wird unterstellt', () => {
-  const miss = (mut) => suggestPrice(mut(base()));
-  assert.equal(miss((b) => ({ ...b, taxRate: null })).ok, false);
-  assert.equal(miss((b) => ({ ...b, costs: { ...b.costs, fees: null } })).ok, false);
-  assert.equal(miss((b) => ({ ...b, costs: { ...b.costs, packagingPerUnit: null } })).ok, false);
-  assert.equal(miss((b) => ({ ...b, costs: { ...b.costs, purchaseNetPerPiece: '' } })).ok, false);
-  assert.equal(miss((b) => ({ ...b, finishingRequired: null })).ok, false);
-  assert.equal(miss((b) => ({ ...b, finishingRequired: 'yes' })).ok, false); // Veredelungskosten fehlen
-  assert.equal(miss((b) => ({ ...b, target: { type: null } })).ok, false);
-  assert.equal(miss((b) => ({ ...b, costs: { ...b.costs, fees: [{ name: 'x', ratePercent: '5' }] } })).ok, false); // Basis fehlt
-  assert.equal(miss((b) => ({ ...b, packSize: 0 })).ok, false);
+test('Fehlende/veraltete Grundlagen blockieren – nichts wird unterstellt', () => {
+  const blocked = (v) => assert.equal(v.ok, false);
+  blocked(suggestPrice(base({ taxRate: null })));
+  blocked(suggestPrice(withCosts({ fees: null })));
+  blocked(suggestPrice(withCosts({ packagingPerUnit: null })));
+  blocked(suggestPrice(withCosts({ shippingRevenueGross: '' })));
+  blocked(suggestPrice(withCosts({ purchaseNetPerPiece: '' })));
+  blocked(suggestPrice(base({ finishingRequired: null })));
+  blocked(suggestPrice(withCosts({ fees: [{ name: 'x', ratePercent: '5' }] }))); // Basis fehlt
+  blocked(suggestPrice(base({ packSize: 0 })));
+  blocked(suggestPrice(withCosts({ source: '' })));
+  blocked(suggestPrice(withCosts({ validUntil: '2026-10-01' }))); // abgelaufen
+  blocked(suggestPrice(withCosts({ validUntil: null })));
+  blocked(suggestPrice(base({ target: { type: null } })));
 });
-test('Unerreichbares Ziel und Nullkosten', () => {
-  assert.equal(suggestPrice(base({ target: { type: 'margin', percent: '95' }, costs: { ...base().costs, fees: [{ name: 'a', basis: 'net_price', ratePercent: '10' }] } })).ok, false);
-  assert.equal(suggestPrice(base({ costs: { ...base().costs, purchaseNetPerPiece: '0' } })).ok, false);
+test('Unerreichbares Ziel, Nullkosten, negative Werte', () => {
+  blockedFee();
+  function blockedFee() {
+    assert.equal(suggestPrice(withCosts({ fees: [{ name: 'a', basis: 'gross_item', ratePercent: '90' }] })).ok, false);
+  }
+  assert.equal(suggestPrice(withCosts({ purchaseNetPerPiece: '0' })).ok, false);
+  assert.equal(suggestPrice(withCosts({ purchaseNetPerPiece: '-5' })).ok, false);
 });

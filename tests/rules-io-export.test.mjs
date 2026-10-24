@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { parseWorklist, serializeJson, serializeCsv, planImport, applyImport } from '../public/js/io.mjs';
 import { toCsv, parseCsv, guardCell } from '../public/js/csv.mjs';
-import { approvalState, approve, effectiveStatus, setStatus, exportEligibility, dataProblems, exportProblems, revoke } from '../public/js/rules.mjs';
+import { config, approvalState, approve, effectiveStatus, setStatus, exportEligibility, dataProblems, exportProblems, revoke } from '../public/js/rules.mjs';
 import { buildPreview, previewCsv, previewJson } from '../public/js/exporters/index.mjs';
 import { ADAPTERS } from '../public/js/exporters/index.mjs';
 import { emptyProduct, setPath, gtinValid } from '../public/js/schema.mjs';
@@ -12,6 +12,7 @@ const sampleText = readFileSync(new URL('../data/sample-products.json', import.m
 const samples = () => parseWorklist(sampleText, { filename: 'a.json', keepApprovals: true }).products;
 const byId = (id) => samples().find((p) => p.id === id);
 const NOW = '2026-10-24T10:00:00Z';
+config.today = () => '2026-10-24';
 
 test('Beispieldaten: 8–12 synthetische, fehlerfrei lesbare Datensätze', () => {
   const r = parseWorklist(sampleText, { filename: 'a.json', keepApprovals: true });
@@ -157,4 +158,45 @@ test('Server: Pfadtraversal und fremde Hosts abgewehrt', async () => {
   for (const p of ['/%2e%2e/package.json', '/data/../package.json', '/..%2fserver.mjs']) assert.notEqual((await get(p)).status, 200, p);
   assert.equal((await get('/', 'evil.example')).status, 403);
   s2.close();
+});
+
+test('Veraltete Daten sperren (Quelle, Verfügbarkeit, Landingpage)', () => {
+  const p = byId('SYN-001');
+  assert.equal(approvalState(p, 'data').state, 'granted');
+  config.today = () => '2026-12-31';
+  try {
+    assert.equal(approvalState(p, 'data').state, 'blocked');
+    assert.match(dataProblems(p).map((x) => x.label).join('|'), /veraltet/);
+    assert.match(exportProblems(p).map((x) => x.label).join('|'), /Verfügbarkeitsstand veraltet/);
+    assert.match(exportProblems(p).map((x) => x.label).join('|'), /Landingpage-Prüfung veraltet/);
+    assert.equal(exportEligibility(p).eligible, false);
+  } finally { config.today = () => '2026-10-24'; }
+  assert.equal(exportEligibility(p).eligible, true);
+});
+test('Lebensmittel/Kühlware/Alkohol: Einzelangaben und Prüfstatus Pflicht', () => {
+  const p = byId('SYN-007');
+  const keys = dataProblems(p).map((x) => x.key);
+  for (const k of ['food.ingredients', 'food.allergens', 'food.netContent', 'food.nutrition', 'food.responsibleOperator', 'food.shelfLife', 'food.storage', 'compliance.status']) assert.ok(keys.includes(k), k);
+  const c = byId('SYN-002'); c.flags.chilled = 'yes';
+  assert.match(dataProblems(c).map((x) => x.label).join('|'), /Kühlware/);
+  c.flags.chilled = null; assert.ok(dataProblems(c).some((x) => x.key === 'flags.chilled'));
+});
+test('Eigener Bestand braucht Menge, Lagerort, SLA; Lieferfähigkeit, Gewicht und Maße Pflicht', () => {
+  const p = byId('SYN-002'); p.availability.status = 'own_stock';
+  const keys = exportProblems(p).map((x) => x.key);
+  for (const k of ['availability.reservedQty', 'availability.location', 'availability.sla']) assert.ok(keys.includes(k), k);
+  const q = byId('SYN-002'); q.availability.capacityConfirmed = null; q.logistics.weightGrams = null; q.logistics.dimensionsMm = null;
+  const k2 = exportProblems(q).map((x) => x.key);
+  for (const k of ['availability.capacityConfirmed', 'logistics.weightGrams', 'logistics.dimensionsMm']) assert.ok(k2.includes(k), k);
+});
+test('Personalisiertes festes Paket: Druckposition/-farben/-fläche, Korrekturprozess, Einmalkosten', () => {
+  const p = byId('SYN-004'); p.finishing.configComplete = 'yes';
+  const keys = dataProblems(p).map((x) => x.key);
+  for (const k of ['finishing.printPosition', 'finishing.printColors', 'finishing.printArea', 'finishing.artworkProcess', 'finishing.oneOffIncluded']) assert.ok(keys.includes(k), k);
+});
+test('ASIN nur mit Identitätsnachweis', () => {
+  const p = byId('SYN-001'); p.asin = 'B000000000';
+  assert.match(exportProblems(p).map((x) => x.label).join('|'), /ASIN ohne Nachweis/);
+  p.asinProof = 'Test-Abgleich (synthetisch)'; assert.ok(!exportProblems(p).some((x) => x.key === 'asin'));
+  assert.ok(parseWorklist(JSON.stringify({ format: 'biztune-social-worklist', version: 1, products: [{ id: 'A', asin: 'abc' }] }), { filename: 'a.json' }).errors.length);
 });
