@@ -23,6 +23,15 @@ Die Adapter `public/js/exporters/meta.mjs` und `tiktok.mjs` sind **Gerüste**: S
 7. Gewicht/Maße, Versand-/Logistikvorlage, Rückgaberegeln.
 8. Bild- und Textvorgaben.
 
+**Amazon (Marketplace, eigenes Händlerkonto)**
+1. Aktuelle Original-Vorlage(n) für amazon.de aus Seller Central je Kategorie/Produkttyp.
+2. Bereits vorhandene ASINs/Angebote (Inventarbericht), damit neue Produktseiten und Angebote zu bestehenden ASINs unterschieden werden können.
+3. Marken- und GTIN-Regeln inkl. möglicher GTIN-Befreiung; Markenfreigaben.
+4. Pflichtfelder je Produkttyp (Merkmale/Bullet Points, Suchbegriffe, Gewicht/Maße, Herkunftsland, Sicherheitsangaben).
+5. Variantenstruktur (Eltern/Kind), Versandmodell (Händlerversand/FBA), Bestandsangabe (Lieferantenverfügbarkeit ≠ Bestand).
+6. Bildvorgaben, beschränkte Kategorien, Lebensmittel-/Alkoholregeln.
+Zusätzliche Amazon-Sperre im Adapter: ohne GTIN oder Marke wird nichts exportiert (es wird nichts erfunden).
+
 ## Bisher unbekannte Pflichtfelder (in der App unter „Export“ aufgelistet)
 Meta: Plattformkategorie, Marke, Zustand, Versandgewicht/-maße, Rückgabe-/Versandrichtlinien, verbindliche Spaltennamen.
 TikTok: Kategorie-ID, Marke, Gewicht/Maße, Versandvorlage, Bestandsmenge, verbindliche Spaltennamen.

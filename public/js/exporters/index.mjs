@@ -1,4 +1,5 @@
 import { metaAdapter } from './meta.mjs';
 import { tiktokAdapter } from './tiktok.mjs';
-export const ADAPTERS = [metaAdapter, tiktokAdapter];
-export { buildPreview, previewCsv, previewJson, previewFilename, PREVIEW_BANNER } from './common.mjs';
+import { amazonAdapter } from './amazon.mjs';
+export const ADAPTERS = [metaAdapter, tiktokAdapter, amazonAdapter];
+export { buildPreview, previewCsv, previewJson, previewFilename, PREVIEW_BANNER, canonicalRow, eligibility } from './common.mjs';

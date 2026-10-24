@@ -15,3 +15,6 @@ Für Export: `inquiryOnly`, `shipping.rule`, `shipping.deliveryTime`, `availabil
 - Geldwerte als Zeichenketten mit Punkt (`"19.90"`), Steuersatz in Prozent (`"19"`). Brutto = Netto × (1 + Satz/100), kaufmännisch auf Cent gerundet – abweichende Werte werden als Widerspruch markiert.
 - IDs müssen über Läufe hinweg stabil bleiben; bei erneutem Import erscheinen Änderungen als „abweichend“ und werden nur nach Auswahl übernommen.
 - Optional `synthetic: true` nur für Testdaten; echte Daten ohne dieses Feld.
+
+## Zusätzlich für Amazon
+`brand` (nur belegt) und `gtin` (nur belegt) – ohne beides sperrt der Amazon-Adapter. Hilfreich für Empfehlungen (später): bestehende ASINs und Verkaufszahlen aus dem Amazon-Konto als eigene Datei; Format wird abgestimmt, sobald ein echter Bericht vorliegt.

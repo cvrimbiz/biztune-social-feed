@@ -6,8 +6,9 @@
     {
       "id": "SYN-001",
       "sku": "SYN-SKU-001",
-      "gtin": null,
+      "gtin": "2000000000015",
       "brandLine": "roemer_praesentset",
+      "brand": "TESTMARKE (synthetisch)",
       "family": "Testfamilie Alpha",
       "variant": {
         "label": "Holz natur"
@@ -72,14 +73,14 @@
       "workflow": {
         "status": "approved",
         "exclusionReason": null,
-        "note": "Vollständig vorbereitetes Beispiel (alle Freigaben)."
+        "note": "Vollständig vorbereitetes Beispiel (alle Freigaben). GTIN 2000000000015 ist eine synthetische Testnummer (Präfix 2, intern), keine echte GTIN."
       },
       "approvals": {
         "data": {
           "approved": true,
           "by": "Beispiel-Prüfer",
           "at": "2026-10-01T09:00:00Z",
-          "fingerprint": "1adf580d"
+          "fingerprint": "125b63f6"
         },
         "price": {
           "approved": true,
@@ -101,6 +102,7 @@
       "sku": "SYN-SKU-002",
       "gtin": null,
       "brandLine": "roemer_praesentset",
+      "brand": null,
       "family": "Testfamilie Alpha",
       "variant": {
         "label": "Holz dunkel"
@@ -194,6 +196,7 @@
       "sku": "SYN-SKU-003",
       "gtin": null,
       "brandLine": "roemer_praesentset",
+      "brand": null,
       "family": "Testfamilie Beta",
       "variant": {
         "label": "6er-Packung, schwarz"
@@ -287,6 +290,7 @@
       "sku": "SYN-SKU-004",
       "gtin": null,
       "brandLine": "roemer_praesentset",
+      "brand": null,
       "family": "Testfamilie Beta",
       "variant": {
         "label": "Einzelset, mit Gravur"
@@ -380,6 +384,7 @@
       "sku": "SYN-SKU-005",
       "gtin": null,
       "brandLine": "rominox",
+      "brand": null,
       "family": "Testfamilie Gamma",
       "variant": {
         "label": "Edelstahl 20 cm"
@@ -473,6 +478,7 @@
       "sku": null,
       "gtin": null,
       "brandLine": "rominox",
+      "brand": null,
       "family": "Testfamilie Delta",
       "variant": {
         "label": "Edelstahl 30 cm"
@@ -564,6 +570,7 @@
       "sku": "SYN-SKU-007",
       "gtin": null,
       "brandLine": "other",
+      "brand": null,
       "family": "Testfamilie Epsilon",
       "variant": {
         "label": "Gewürzset 3-teilig"
@@ -657,6 +664,7 @@
       "sku": "SYN-SKU-008",
       "gtin": null,
       "brandLine": "other",
+      "brand": null,
       "family": "Testfamilie Zeta",
       "variant": {
         "label": "Set mit Spirituose 0,2 l"
@@ -750,6 +758,7 @@
       "sku": "SYN-SKU-009",
       "gtin": null,
       "brandLine": "roemer_praesentset",
+      "brand": null,
       "family": "Testfamilie Eta",
       "variant": {
         "label": "Standard"
@@ -843,6 +852,7 @@
       "sku": null,
       "gtin": null,
       "brandLine": "other",
+      "brand": null,
       "family": "Testfamilie Theta",
       "variant": {
         "label": null
@@ -934,6 +944,7 @@
       "sku": "SYN-SKU-011",
       "gtin": null,
       "brandLine": "rominox",
+      "brand": null,
       "family": "Testfamilie Iota",
       "variant": {
         "label": "Edelstahl 15 cm"

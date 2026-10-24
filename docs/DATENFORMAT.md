@@ -11,7 +11,7 @@ JSON-Datei:
 | Pfad | Typ | Bedeutung |
 |---|---|---|
 | `id` | Text, `[A-Za-z0-9._:-]{1,64}` | stabile Artikel-/Angebots-ID (Pflicht, eindeutig; Variante = eigene ID) |
-| `sku`, `gtin` | Text | SKU; GTIN nur wenn belegt (Prüfziffer wird geprüft) |
+| `sku`, `gtin`, `brand` | Text | SKU; GTIN und Marke nur wenn belegt (GTIN-Prüfziffer wird geprüft) |
 | `brandLine` | `roemer_praesentset`/`rominox`/`other` | Auswahlgruppe |
 | `family`, `variant.label` | Text | Produktfamilie, konkrete Variante |
 | `title`, `description` | Text | werden nur als Text dargestellt |

@@ -123,7 +123,7 @@ test('Adapter: nur freigegebene Produkte, Vorschau gekennzeichnet, getrennte Spa
   const out = ADAPTERS.map((a) => buildPreview(a, ps));
   for (const o of out) {
     assert.equal(o.schemaValidated, false); assert.equal(o.previewOnly, true);
-    assert.deepEqual(o.rows.map((r) => r.offer_id ?? r.sku_ref), ['SYN-001']);
+    assert.equal(o.rows.length, 1); assert.ok(['SYN-001', 'SYN-SKU-001'].includes(o.rows[0].offer_id ?? o.rows[0].sku_ref ?? o.rows[0].seller_sku));
     assert.equal(o.excluded.length, ps.length - 1);
     assert.ok(o.rows.every((r) => /NICHT FÜR IMPORT/.test(r._interne_vorschau)));
     assert.match(previewCsv(o), /^﻿/); assert.match(o.banner, /NICHT FÜR PLATTFORM-IMPORT/);

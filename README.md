@@ -18,13 +18,16 @@ Siehe [docs/START.md](docs/START.md) (Windows und macOS). Kurz: Node.js ≥ 20 i
 | `public/js/schema.mjs` | Datenmodell, Feldprüfung (unbekannt = `null`) |
 | `public/js/rules.mjs` | fehlende Angaben, getrennte Freigaben, Exportsperren, nächste Schritte |
 | `public/js/io.mjs`, `csv.mjs` | Import/Export JSON/CSV, CSV-Formelschutz, kein stilles Überschreiben |
-| `public/js/exporters/` | getrennte Adaptergerüste Meta / TikTok (interne Vorschau) |
+| `public/js/exporters/` | getrennte Adaptergerüste Meta / TikTok / Amazon (interne Vorschau) |
+| `public/js/recommend.mjs` | transparente Eignungsbewertung je Plattform |
+| `public/js/templatefill.mjs` | befüllt heruntergeladene CSV-Plattformvorlagen |
 | `public/js/report.mjs` | produktbezogener Prüfbericht |
 | `public/js/app.js`, `view-*.js` | Oberfläche (deutsch) |
 | `data/` | synthetische Beispiele, Importbeispiele |
 | `tests/` | Tests (`node --test`) |
 
 ## Dokumente
+- [Arbeitsablauf & Roadmap](docs/ROADMAP.md)
 - [Startanleitung](docs/START.md)
 - [Internes Datenformat](docs/DATENFORMAT.md)
 - [Fehlende Originalvorlagen / Plattform-Pflichtfelder](docs/EXPORT-OFFEN.md)

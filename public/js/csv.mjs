@@ -69,3 +69,8 @@ export function parseCsv(text, { maxRows = 5000 } = {}) {
   if (field !== '' || row.length) pushRow();
   return { rows, delimiter };
 }
+
+/** Serialisiert Zeilen aus Zellen-Arrays (z. B. befüllte Plattformvorlage, doppelte Spaltenköpfe möglich). */
+export function rowsToCsv(rows, { delimiter = ';', bom = true } = {}) {
+  return (bom ? '\uFEFF' : '') + rows.map((r) => r.map((c) => quote(guardCell(c), delimiter)).join(delimiter)).join('\r\n') + '\r\n';
+}

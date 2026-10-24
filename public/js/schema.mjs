@@ -25,6 +25,7 @@ export const FIELDS = [
   { path: 'sku', label: 'SKU', type: 'text', group: 'Grunddaten' },
   { path: 'gtin', label: 'GTIN (nur wenn belegt)', type: 'gtin', group: 'Grunddaten' },
   { path: 'brandLine', label: 'Auswahlgruppe', type: 'enum', options: 'brandLine', group: 'Grunddaten' },
+  { path: 'brand', label: 'Marke (nur wenn belegt)', type: 'text', group: 'Grunddaten' },
   { path: 'family', label: 'Produktfamilie', type: 'text', group: 'Grunddaten' },
   { path: 'variant.label', label: 'Konkrete Variante', type: 'text', group: 'Grunddaten' },
   { path: 'title', label: 'Titel', type: 'text', group: 'Grunddaten' },

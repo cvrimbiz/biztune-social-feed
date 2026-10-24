@@ -42,7 +42,7 @@ function complete(id, o) {
 
 const list = [];
 
-let p1 = complete('SYN-001', { brandLine: 'roemer_praesentset', family: 'Testfamilie Alpha', 'variant.label': 'Holz natur', title: 'TESTARTIKEL Präsentset Alpha – Holz natur', description: 'Synthetische Beschreibung. Kein echtes Produkt.', 'price.net': '25.00', 'workflow.note': 'Vollständig vorbereitetes Beispiel (alle Freigaben).' });
+let p1 = complete('SYN-001', { brandLine: 'roemer_praesentset', family: 'Testfamilie Alpha', 'variant.label': 'Holz natur', title: 'TESTARTIKEL Präsentset Alpha – Holz natur', description: 'Synthetische Beschreibung. Kein echtes Produkt.', 'price.net': '25.00', gtin: '2000000000015', brand: 'TESTMARKE (synthetisch)', 'workflow.note': 'Vollständig vorbereitetes Beispiel (alle Freigaben). GTIN 2000000000015 ist eine synthetische Testnummer (Präfix 2, intern), keine echte GTIN.' });
 for (const g of ['data', 'price', 'export']) p1 = approve(p1, g, 'Beispiel-Prüfer', NOW).product;
 p1 = setStatus(p1, 'approved').product;
 list.push(p1);

@@ -53,6 +53,7 @@ Produkte: 11
 
 - Meta (Instagram / Facebook) – Gerüst: Zeile würde in die Vorschau aufgenommen
 - TikTok Shop – Gerüst: Zeile würde in die Vorschau aufgenommen
+- Amazon (Marketplace) – Gerüst: Zeile würde in die Vorschau aufgenommen
 
 **Nächster Schritt:** Fertig vorbereitet. Echte Plattformvorlage fehlt noch (nur interne Vorschau möglich).
 
@@ -79,6 +80,7 @@ Produkte: 11
 
 - Meta (Instagram / Facebook) – Gerüst: gesperrt
 - TikTok Shop – Gerüst: gesperrt
+- Amazon (Marketplace) – Gerüst: gesperrt
   - Freigabe „Produktdaten“ fehlt oder ist veraltet
   - Freigabe „Verkaufspreis“ fehlt oder ist veraltet
 
@@ -112,6 +114,7 @@ Produkte: 11
 
 - Meta (Instagram / Facebook) – Gerüst: gesperrt
 - TikTok Shop – Gerüst: gesperrt
+- Amazon (Marketplace) – Gerüst: gesperrt
   - Freigabe „Produktdaten“ fehlt oder ist veraltet
   - Freigabe „Verkaufspreis“ fehlt oder ist veraltet
 
@@ -144,6 +147,7 @@ Produkte: 11
 
 - Meta (Instagram / Facebook) – Gerüst: gesperrt
 - TikTok Shop – Gerüst: gesperrt
+- Amazon (Marketplace) – Gerüst: gesperrt
   - Freigabe „Produktdaten“ fehlt oder ist veraltet
   - Freigabe „Verkaufspreis“ fehlt oder ist veraltet
 
@@ -177,6 +181,7 @@ Produkte: 11
 
 - Meta (Instagram / Facebook) – Gerüst: gesperrt
 - TikTok Shop – Gerüst: gesperrt
+- Amazon (Marketplace) – Gerüst: gesperrt
   - Freigabe „Produktdaten“ fehlt oder ist veraltet
   - Freigabe „Verkaufspreis“ fehlt oder ist veraltet
 
@@ -233,6 +238,7 @@ Produkte: 11
 
 - Meta (Instagram / Facebook) – Gerüst: gesperrt
 - TikTok Shop – Gerüst: gesperrt
+- Amazon (Marketplace) – Gerüst: gesperrt
   - Anfrageartikel – ohne Festpreis nicht exportierbar
   - Versandregel
   - Lieferzeit
@@ -272,6 +278,7 @@ Produkte: 11
 
 - Meta (Instagram / Facebook) – Gerüst: gesperrt
 - TikTok Shop – Gerüst: gesperrt
+- Amazon (Marketplace) – Gerüst: gesperrt
   - Freigabe „Produktdaten“ fehlt oder ist veraltet
   - Freigabe „Verkaufspreis“ fehlt oder ist veraltet
 
@@ -301,6 +308,7 @@ Produkte: 11
 
 - Meta (Instagram / Facebook) – Gerüst: gesperrt
 - TikTok Shop – Gerüst: gesperrt
+- Amazon (Marketplace) – Gerüst: gesperrt
   - Freigabe „Verkaufspreis“ fehlt oder ist veraltet
 
 **Nächster Schritt:** Verkaufspreis prüfen und „Verkaufspreis freigeben“.
@@ -336,6 +344,7 @@ Produkte: 11
 
 - Meta (Instagram / Facebook) – Gerüst: gesperrt
 - TikTok Shop – Gerüst: gesperrt
+- Amazon (Marketplace) – Gerüst: gesperrt
   - Produkt ist ausgeschlossen
   - Freigabe „Produktdaten“ fehlt oder ist veraltet
   - Freigabe „Verkaufspreis“ fehlt oder ist veraltet
@@ -397,6 +406,7 @@ Produkte: 11
 
 - Meta (Instagram / Facebook) – Gerüst: gesperrt
 - TikTok Shop – Gerüst: gesperrt
+- Amazon (Marketplace) – Gerüst: gesperrt
   - Angabe, ob Anfrageartikel (ja/nein)
   - Versandregel
   - Lieferzeit
@@ -436,6 +446,7 @@ Produkte: 11
 
 - Meta (Instagram / Facebook) – Gerüst: gesperrt
 - TikTok Shop – Gerüst: gesperrt
+- Amazon (Marketplace) – Gerüst: gesperrt
   - Landingpage bietet Variante „Edelstahl 18 cm“, Angebot ist „Edelstahl 15 cm“
   - Landingpage zeigt 10.99, Angebot nennt 11.78
   - Freigabe „Produktdaten“ fehlt oder ist veraltet

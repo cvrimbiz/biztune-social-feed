@@ -5,6 +5,8 @@ import { serializeJson, serializeCsv, parseWorklist, planImport, applyImport } f
 import { store } from './store.mjs';
 import { ENUMS } from './schema.mjs';
 import { globalNextSteps } from './rules.mjs';
+import { rankAll } from './recommend.mjs';
+import { parseTemplate, suggestMapping, fillTemplate, SOURCES } from './templatefill.mjs';
 
 const scopeProducts = (state, scope) => (scope === 'selected' ? state.products.filter((p) => state.selected.has(p.id)) : state.products);
 
@@ -39,6 +41,7 @@ export function renderExport(ctx) {
       h('details', null, h('summary', null, 'Fehlende Originalvorlagen / Angaben'),
         h('p', { class: 'small' }, 'Vorlagen und Dokumente, die noch fehlen:'), h('ul', { class: 'plain small' }, a.missingTemplates.map((t) => h('li', null, t))),
         h('p', { class: 'small' }, 'Bisher unbekannte Pflichtfelder:'), h('ul', { class: 'plain small' }, a.unknownRequiredFields.map((t) => h('li', null, t)))));
+    card.append(templateSection(ctx, a, products));
     if (shown === a.id) {
       card.append(
         h('h3', null, 'Vorschau-Zeilen'),
@@ -50,6 +53,43 @@ export function renderExport(ctx) {
   }
   wrap.append(out);
   return wrap;
+}
+
+const tpl = {}; // je Adapter: {text, name, headerRow, mapping, msg}
+
+function templateSection(ctx, a, products) {
+  const t = (tpl[a.id] ??= { headerRow: 1 });
+  const box = h('details', { open: !!t.text }, h('summary', null, 'Heruntergeladene Original-Vorlage (CSV) befüllen'));
+  box.append(h('p', { class: 'small' }, 'Vorlage von der Plattform laden (als CSV; Excel-Vorlagen zuerst als CSV speichern – dabei können Formatierungen/Auswahllisten der Plattform verloren gehen, siehe docs/ROADMAP.md). Die Datei bleibt unverändert, es werden nur Datenzeilen für exportfähige Produkte ergänzt. Zuordnungen sind Vorschläge – bitte prüfen. Ob die Plattform die Datei annimmt, wird NICHT geprüft.'));
+  const msg = h('p', { class: 'err', role: 'alert' }, t.msg ?? '');
+  const load = (text, name) => {
+    try {
+      const tmpl = parseTemplate(text, t.headerRow);
+      const key = tmpl.headers.join('|');
+      const saved = store.loadMappings()[`${a.id}:${key}`];
+      Object.assign(t, { text, name, template: tmpl, mapping: saved ?? suggestMapping(tmpl.headers), msg: '' });
+    } catch (e) { Object.assign(t, { template: null, msg: `Vorlage nicht lesbar: ${e.message}` }); }
+    ctx.rerender();
+  };
+  box.append(h('div', { class: 'row' },
+    h('input', { type: 'file', accept: '.csv,text/csv', 'aria-label': `Vorlage ${a.name}`, onchange: async (e) => { const f = e.target.files?.[0]; if (f && f.size <= 5_000_000) { t.name = f.name; load(await readFileText(f), f.name); } else if (f) { t.msg = 'Datei zu groß'; ctx.rerender(); } } }),
+    h('label', { class: 'small' }, 'Kopfzeile in Zeile ', h('input', { type: 'text', value: String(t.headerRow), 'aria-label': 'Kopfzeile', onchange: (e) => { t.headerRow = Number(e.target.value) || 1; if (t.text) load(t.text, t.name); } }))), msg);
+  if (t.template) {
+    const m = t.mapping;
+    const persist = () => { const all = store.loadMappings(); all[`${a.id}:${t.template.headers.join('|')}`] = m; store.saveMappings(all); };
+    box.append(h('div', { class: 'tablewrap' }, h('table', null,
+      h('thead', null, h('tr', null, ['Spalte der Vorlage', 'Befüllen mit', 'Oder fester Wert'].map((x) => h('th', null, x)))),
+      h('tbody', null, t.template.headers.map((hd, i) => h('tr', null,
+        h('td', null, hd || h('em', { class: 'muted' }, '(ohne Name)')),
+        h('td', null, h('select', { 'aria-label': `Zuordnung ${hd}`, value: m[i]?.startsWith('const:') ? '' : (m[i] ?? ''), onchange: (e) => { m[i] = e.target.value; persist(); ctx.rerender(); } },
+          h('option', { value: '' }, '– leer lassen –'), Object.entries(SOURCES).map(([k, l]) => h('option', { value: k }, l)))),
+        h('td', null, h('input', { type: 'text', 'aria-label': `Festwert ${hd}`, value: m[i]?.startsWith('const:') ? m[i].slice(6) : '', onchange: (e) => { m[i] = e.target.value ? `const:${e.target.value}` : ''; persist(); ctx.rerender(); } }))))))));
+    const res = fillTemplate(t.template, m, products, a);
+    box.append(h('p', { class: 'small' }, `${res.filled} Produkt(e) würden eingetragen, ${res.excluded.length} sind gesperrt. Nicht befüllte Spalten: ${res.unmapped.length ? res.unmapped.join(', ') : 'keine'} – diese bleiben leer und müssen ggf. von Hand ergänzt werden.`),
+      h('div', { class: 'preview' }, 'INTERNE VORSCHAU – Zielschema nicht validiert'),
+      h('button', { class: 'btn', disabled: !res.filled, onclick: () => download(`VORSCHAU-INTERN_${a.id}_befuellt.csv`, res.csv, 'text/csv') }, 'Befüllte Vorlage (Vorschau) laden'));
+  }
+  return box;
 }
 
 function table(cols, rows) {
@@ -184,4 +224,22 @@ export function renderGuide(ctx) {
         h('li', null, 'Keine Verbindung zu Händlerkonten, keine Veröffentlichung, keine Bestellungen, keine Shop- oder Datenbankänderung.'),
         h('li', null, 'Lieferantenverfügbarkeit ist kein eigener Lagerbestand.'),
         h('li', null, `Status-Begriffe: ${Object.values(ENUMS.status).join(', ')}.`))));
+}
+
+// ---------- Empfehlungen ----------
+let recPlatform = 'meta';
+
+export function renderRecommend(ctx) {
+  const { state } = ctx;
+  const ranked = rankAll(state.products).filter((r) => !r.scores[recPlatform].hardStop).sort((a, b) => b.scores[recPlatform].score - a.scores[recPlatform].score || a.p.id.localeCompare(b.p.id));
+  const stopped = rankAll(state.products).filter((r) => r.scores[recPlatform].hardStop);
+  return h('div', null,
+    h('div', { class: 'card' }, h('h2', null, 'Empfehlungen: Was ist für welchen Shop startklar?'),
+      h('p', { class: 'small' }, 'Die Bewertung (0–100) misst nur den Vorbereitungsstand und die einfache Verkaufbarkeit anhand der vorhandenen Daten: exportfähig, bestätigter Preis, Mindestmenge 1, keine Pflichtveredelung, belegte Verfügbarkeit, Bildrechte, GTIN; Abzüge für Alkohol/Lebensmittel. Nachfrage, bisherige Verkäufe und Margen fließen NICHT ein, weil dafür keine Daten vorliegen – es ist keine Marktprognose.'),
+      h('div', { class: 'row' }, h('select', { 'aria-label': 'Plattform', value: recPlatform, onchange: (e) => { recPlatform = e.target.value; ctx.rerender(); } }, ADAPTERS.map((a) => h('option', { value: a.id }, a.name))),
+        h('button', { class: 'btn', onclick: () => { state.selected.clear(); ranked.slice(0, 10).forEach((r) => state.selected.add(r.p.id)); state.tab = 'products'; ctx.rerender(); } }, 'Top 10 in „Produkte“ auswählen'))),
+    h('div', { class: 'tablewrap' }, h('table', null,
+      h('thead', null, h('tr', null, ['#', 'Produkt', 'Eignung', 'Dafür', 'Dagegen'].map((x) => h('th', null, x)))),
+      h('tbody', null, ranked.map((r, i) => { const s = r.scores[recPlatform]; return h('tr', null, h('td', null, String(i + 1)), h('td', null, h('strong', null, r.p.id), ' ', r.p.title ?? ''), h('td', null, String(s.score)), h('td', { class: 'small' }, s.plus.join('; ')), h('td', { class: 'small' }, s.minus.join('; '))); })))),
+    stopped.length ? h('p', { class: 'small muted' }, `Nicht bewertbar (ausgeschlossen oder Anfrageartikel): ${stopped.map((r) => r.p.id).join(', ')}`) : null);
 }

@@ -5,9 +5,9 @@ import { approvalState, approve, revoke, effectiveStatus, setStatus, exportEligi
 import { checkPrice, grossFromNet } from './pricing.mjs';
 import { formatMoney } from './decimal.mjs';
 import { renderCalc } from './view-calc.js';
-import { renderExport, renderReport, renderData, renderGuide } from './view-misc.js';
+import { renderExport, renderReport, renderData, renderGuide, renderRecommend } from './view-misc.js';
 
-const TABS = [['products', 'Produkte'], ['calc', 'Kalkulation (vertraulich)'], ['export', 'Export'], ['report', 'Prüfbericht'], ['data', 'Daten (Import/Export)'], ['guide', 'Anleitung']];
+const TABS = [['products', 'Produkte'], ['calc', 'Kalkulation (vertraulich)'], ['recommend', 'Empfehlungen'], ['export', 'Export'], ['report', 'Prüfbericht'], ['data', 'Daten (Import/Export)'], ['guide', 'Anleitung']];
 
 export const state = {
   products: store.loadProducts(),
@@ -60,7 +60,7 @@ function renderTabs() {
 export function render() {
   renderBanner();
   renderTabs();
-  const view = { products: renderProducts, calc: renderCalc, export: renderExport, report: renderReport, data: renderData, guide: renderGuide }[state.tab];
+  const view = { products: renderProducts, calc: renderCalc, recommend: renderRecommend, export: renderExport, report: renderReport, data: renderData, guide: renderGuide }[state.tab];
   main.replaceChildren(view(ctx));
 }
 
