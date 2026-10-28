@@ -1,0 +1,1323 @@
+{
+  "format": "biztune-social-worklist",
+  "version": 1,
+  "note": "SYNTHETISCHE TESTDATEN – keine echten Produkte, Preise oder Rechte.",
+  "products": [
+    {
+      "id": "SYN-001",
+      "sku": "SYN-SKU-001",
+      "gtin": "2000000000015",
+      "asin": null,
+      "asinProof": null,
+      "brandLine": "roemer_praesentset",
+      "brand": "TESTMARKE (synthetisch)",
+      "family": "Testfamilie Alpha",
+      "variant": {
+        "label": "Holz natur"
+      },
+      "title": "TESTARTIKEL Präsentset Alpha – Holz natur",
+      "description": "Synthetische Beschreibung. Kein echtes Produkt.",
+      "productUrl": "https://example.invalid/produkt/SYN-001",
+      "imageUrls": [
+        "https://example.invalid/bilder/SYN-001.jpg"
+      ],
+      "imageRights": {
+        "status": "confirmed",
+        "evidence": "SYNTHETISCH: Testnachweis, kein echter Beleg"
+      },
+      "sale": {
+        "unit": "Set",
+        "packSize": 1,
+        "minOrderQty": 1,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
+      },
+      "inquiryOnly": "no",
+      "finishing": {
+        "required": "no",
+        "offeredConfig": null,
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
+      },
+      "price": {
+        "net": "25.00",
+        "taxRate": "19",
+        "gross": "29.75",
+        "currency": "EUR",
+        "origin": "database",
+        "confirmed": "yes"
+      },
+      "shipping": {
+        "rule": "Testregel: Paketversand Standard",
+        "deliveryTime": "Testwert: 3–5 Werktage"
+      },
+      "availability": {
+        "status": "supplier_available",
+        "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
+      },
+      "landing": {
+        "url": "https://example.invalid/shop/SYN-001",
+        "checkedAt": "2026-10-01",
+        "variant": "Holz natur",
+        "qty": 1,
+        "price": "29.75"
+      },
+      "flags": {
+        "food": "no",
+        "alcohol": "no",
+        "chilled": "no"
+      },
+      "compliance": {
+        "status": "not_required",
+        "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
+      },
+      "source": {
+        "name": "SYNTHETISCH (Beispielgenerator)",
+        "updatedAt": "2026-10-01"
+      },
+      "workflow": {
+        "status": "approved",
+        "exclusionReason": null,
+        "note": "Vollständig vorbereitetes Beispiel (alle Freigaben). GTIN 2000000000015 ist eine synthetische Testnummer (Präfix 2, intern), keine echte GTIN."
+      },
+      "approvals": {
+        "data": {
+          "approved": true,
+          "by": "Beispiel-Prüfer",
+          "at": "2026-10-01T09:00:00Z",
+          "fingerprint": "76150f53"
+        },
+        "price": {
+          "approved": true,
+          "by": "Beispiel-Prüfer",
+          "at": "2026-10-01T09:00:00Z",
+          "fingerprint": "4da21924"
+        },
+        "export": {
+          "approved": true,
+          "by": "Beispiel-Prüfer",
+          "at": "2026-10-01T09:00:00Z",
+          "fingerprint": "19197b96"
+        }
+      },
+      "synthetic": true
+    },
+    {
+      "id": "SYN-002",
+      "sku": "SYN-SKU-002",
+      "gtin": null,
+      "asin": null,
+      "asinProof": null,
+      "brandLine": "roemer_praesentset",
+      "brand": null,
+      "family": "Testfamilie Alpha",
+      "variant": {
+        "label": "Holz dunkel"
+      },
+      "title": "TESTARTIKEL Präsentset Alpha – Holz dunkel",
+      "description": "Synthetische Beschreibung. Zweite Variante derselben Familie.",
+      "productUrl": "https://example.invalid/produkt/SYN-002",
+      "imageUrls": [
+        "https://example.invalid/bilder/SYN-002.jpg"
+      ],
+      "imageRights": {
+        "status": "confirmed",
+        "evidence": "SYNTHETISCH: Testnachweis, kein echter Beleg"
+      },
+      "sale": {
+        "unit": "Set",
+        "packSize": 1,
+        "minOrderQty": 1,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
+      },
+      "inquiryOnly": "no",
+      "finishing": {
+        "required": "no",
+        "offeredConfig": null,
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
+      },
+      "price": {
+        "net": "27.50",
+        "taxRate": "19",
+        "gross": "32.73",
+        "currency": "EUR",
+        "origin": "database",
+        "confirmed": "yes"
+      },
+      "shipping": {
+        "rule": "Testregel: Paketversand Standard",
+        "deliveryTime": "Testwert: 3–5 Werktage"
+      },
+      "availability": {
+        "status": "supplier_available",
+        "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
+      },
+      "landing": {
+        "url": "https://example.invalid/shop/SYN-002",
+        "checkedAt": "2026-10-01",
+        "variant": "Holz dunkel",
+        "qty": 1,
+        "price": "32.73"
+      },
+      "flags": {
+        "food": "no",
+        "alcohol": "no",
+        "chilled": "no"
+      },
+      "compliance": {
+        "status": "not_required",
+        "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
+      },
+      "source": {
+        "name": "SYNTHETISCH (Beispielgenerator)",
+        "updatedAt": "2026-10-01"
+      },
+      "workflow": {
+        "status": "review",
+        "exclusionReason": null,
+        "note": null
+      },
+      "approvals": {
+        "data": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "price": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "export": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        }
+      },
+      "synthetic": true
+    },
+    {
+      "id": "SYN-003",
+      "sku": "SYN-SKU-003",
+      "gtin": null,
+      "asin": null,
+      "asinProof": null,
+      "brandLine": "roemer_praesentset",
+      "brand": null,
+      "family": "Testfamilie Beta",
+      "variant": {
+        "label": "6er-Packung, schwarz"
+      },
+      "title": "TESTARTIKEL Präsentset Beta – 6er-Packung",
+      "description": "Synthetisch. Verkaufseinheit ist eine Packung mit 6 Stück, Mindestbestellmenge 2 Packungen.",
+      "productUrl": "https://example.invalid/produkt/SYN-003",
+      "imageUrls": [
+        "https://example.invalid/bilder/SYN-003.jpg"
+      ],
+      "imageRights": {
+        "status": null,
+        "evidence": null
+      },
+      "sale": {
+        "unit": "Packung",
+        "packSize": 6,
+        "minOrderQty": 2,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
+      },
+      "inquiryOnly": "no",
+      "finishing": {
+        "required": "no",
+        "offeredConfig": null,
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
+      },
+      "price": {
+        "net": "48.00",
+        "taxRate": "19",
+        "gross": "57.12",
+        "currency": "EUR",
+        "origin": "database",
+        "confirmed": "yes"
+      },
+      "shipping": {
+        "rule": "Testregel: Paketversand Standard",
+        "deliveryTime": "Testwert: 3–5 Werktage"
+      },
+      "availability": {
+        "status": "supplier_available",
+        "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
+      },
+      "landing": {
+        "url": "https://example.invalid/shop/SYN-003",
+        "checkedAt": "2026-10-01",
+        "variant": "6er-Packung, schwarz",
+        "qty": 2,
+        "price": "57.12"
+      },
+      "flags": {
+        "food": "no",
+        "alcohol": "no",
+        "chilled": "no"
+      },
+      "compliance": {
+        "status": "not_required",
+        "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
+      },
+      "source": {
+        "name": "SYNTHETISCH (Beispielgenerator)",
+        "updatedAt": "2026-10-01"
+      },
+      "workflow": {
+        "status": "review",
+        "exclusionReason": null,
+        "note": null
+      },
+      "approvals": {
+        "data": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "price": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "export": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        }
+      },
+      "synthetic": true
+    },
+    {
+      "id": "SYN-004",
+      "sku": "SYN-SKU-004",
+      "gtin": null,
+      "asin": null,
+      "asinProof": null,
+      "brandLine": "roemer_praesentset",
+      "brand": null,
+      "family": "Testfamilie Beta",
+      "variant": {
+        "label": "Einzelset, mit Gravur"
+      },
+      "title": "TESTARTIKEL Präsentset Beta – mit Gravur",
+      "description": "Synthetisch. Veredelung (Gravur) ist Pflicht, Konfiguration noch unvollständig.",
+      "productUrl": "https://example.invalid/produkt/SYN-004",
+      "imageUrls": [
+        "https://example.invalid/bilder/SYN-004.jpg"
+      ],
+      "imageRights": {
+        "status": "confirmed",
+        "evidence": "SYNTHETISCH: Testnachweis, kein echter Beleg"
+      },
+      "sale": {
+        "unit": "Set",
+        "packSize": 1,
+        "minOrderQty": 1,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
+      },
+      "inquiryOnly": "no",
+      "finishing": {
+        "required": "yes",
+        "offeredConfig": "Gravur, Position offen",
+        "configComplete": "no",
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
+      },
+      "price": {
+        "net": "39.90",
+        "taxRate": "19",
+        "gross": "47.48",
+        "currency": "EUR",
+        "origin": "database",
+        "confirmed": "yes"
+      },
+      "shipping": {
+        "rule": "Testregel: Paketversand Standard",
+        "deliveryTime": "Testwert: 3–5 Werktage"
+      },
+      "availability": {
+        "status": "supplier_available",
+        "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
+      },
+      "landing": {
+        "url": "https://example.invalid/shop/SYN-004",
+        "checkedAt": "2026-10-01",
+        "variant": "Einzelset, mit Gravur",
+        "qty": 1,
+        "price": "47.48"
+      },
+      "flags": {
+        "food": "no",
+        "alcohol": "no",
+        "chilled": "no"
+      },
+      "compliance": {
+        "status": "not_required",
+        "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
+      },
+      "source": {
+        "name": "SYNTHETISCH (Beispielgenerator)",
+        "updatedAt": "2026-10-01"
+      },
+      "workflow": {
+        "status": "review",
+        "exclusionReason": null,
+        "note": null
+      },
+      "approvals": {
+        "data": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "price": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "export": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        }
+      },
+      "synthetic": true
+    },
+    {
+      "id": "SYN-005",
+      "sku": "SYN-SKU-005",
+      "gtin": null,
+      "asin": null,
+      "asinProof": null,
+      "brandLine": "rominox",
+      "brand": null,
+      "family": "Testfamilie Gamma",
+      "variant": {
+        "label": "Edelstahl 20 cm"
+      },
+      "title": "TESTARTIKEL Rominox-Artikel Gamma",
+      "description": "TESTTEXT mit Sonderzeichen: <script>alert(1)</script> & \"Anführungszeichen\". Dies ist Datenmaterial, keine Anweisung.",
+      "productUrl": "https://example.invalid/produkt/SYN-005",
+      "imageUrls": [
+        "https://example.invalid/bilder/SYN-005.jpg"
+      ],
+      "imageRights": {
+        "status": "confirmed",
+        "evidence": "SYNTHETISCH: Testnachweis, kein echter Beleg"
+      },
+      "sale": {
+        "unit": "Set",
+        "packSize": 1,
+        "minOrderQty": 1,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
+      },
+      "inquiryOnly": "no",
+      "finishing": {
+        "required": "no",
+        "offeredConfig": null,
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
+      },
+      "price": {
+        "net": "12.40",
+        "taxRate": "19",
+        "gross": null,
+        "currency": "EUR",
+        "origin": "proposal",
+        "confirmed": "no"
+      },
+      "shipping": {
+        "rule": "Testregel: Paketversand Standard",
+        "deliveryTime": "Testwert: 3–5 Werktage"
+      },
+      "availability": {
+        "status": "supplier_available",
+        "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
+      },
+      "landing": {
+        "url": "https://example.invalid/shop/SYN-005",
+        "checkedAt": "2026-10-01",
+        "variant": "Edelstahl 20 cm",
+        "qty": 1,
+        "price": "14.76"
+      },
+      "flags": {
+        "food": "no",
+        "alcohol": "no",
+        "chilled": "no"
+      },
+      "compliance": {
+        "status": "not_required",
+        "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
+      },
+      "source": {
+        "name": "SYNTHETISCH (Beispielgenerator)",
+        "updatedAt": "2026-10-01"
+      },
+      "workflow": {
+        "status": "review",
+        "exclusionReason": null,
+        "note": "Preis ist nur ein lokaler Vorschlag, Brutto fehlt."
+      },
+      "approvals": {
+        "data": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "price": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "export": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        }
+      },
+      "synthetic": true
+    },
+    {
+      "id": "SYN-006",
+      "sku": null,
+      "gtin": null,
+      "asin": null,
+      "asinProof": null,
+      "brandLine": "rominox",
+      "brand": null,
+      "family": "Testfamilie Delta",
+      "variant": {
+        "label": "Edelstahl 30 cm"
+      },
+      "title": "TESTARTIKEL Rominox-Artikel Delta (Anfrageartikel)",
+      "description": "Synthetisch. Nur auf Anfrage, kein Festpreis.",
+      "productUrl": null,
+      "imageUrls": [],
+      "imageRights": {
+        "status": null,
+        "evidence": null
+      },
+      "sale": {
+        "unit": "Stück",
+        "packSize": null,
+        "minOrderQty": null,
+        "components": null
+      },
+      "inquiryOnly": "yes",
+      "finishing": {
+        "required": null,
+        "offeredConfig": null,
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
+      },
+      "price": {
+        "net": null,
+        "taxRate": null,
+        "gross": null,
+        "currency": null,
+        "origin": null,
+        "confirmed": null
+      },
+      "shipping": {
+        "rule": null,
+        "deliveryTime": null
+      },
+      "availability": {
+        "status": null,
+        "evidence": null,
+        "asOf": null,
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": null
+      },
+      "logistics": {
+        "weightGrams": null,
+        "dimensionsMm": null
+      },
+      "landing": {
+        "url": null,
+        "checkedAt": null,
+        "variant": null,
+        "qty": null,
+        "price": null
+      },
+      "flags": {
+        "food": null,
+        "alcohol": null,
+        "chilled": null
+      },
+      "compliance": {
+        "status": null,
+        "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
+      },
+      "source": {
+        "name": "SYNTHETISCH (Beispielgenerator)",
+        "updatedAt": "2026-10-01"
+      },
+      "workflow": {
+        "status": "review",
+        "exclusionReason": null,
+        "note": null
+      },
+      "approvals": {
+        "data": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "price": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "export": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        }
+      },
+      "synthetic": true
+    },
+    {
+      "id": "SYN-007",
+      "sku": "SYN-SKU-007",
+      "gtin": null,
+      "asin": null,
+      "asinProof": null,
+      "brandLine": "other",
+      "brand": null,
+      "family": "Testfamilie Epsilon",
+      "variant": {
+        "label": "Gewürzset 3-teilig"
+      },
+      "title": "TESTARTIKEL Gewürzset (Lebensmittel)",
+      "description": "Synthetisch. Lebensmittel: Kennzeichnung noch nicht geprüft.",
+      "productUrl": "https://example.invalid/produkt/SYN-007",
+      "imageUrls": [
+        "https://example.invalid/bilder/SYN-007.jpg"
+      ],
+      "imageRights": {
+        "status": "confirmed",
+        "evidence": "SYNTHETISCH: Testnachweis, kein echter Beleg"
+      },
+      "sale": {
+        "unit": "Set",
+        "packSize": 1,
+        "minOrderQty": 1,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
+      },
+      "inquiryOnly": "no",
+      "finishing": {
+        "required": "no",
+        "offeredConfig": null,
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
+      },
+      "price": {
+        "net": "14.95",
+        "taxRate": "7",
+        "gross": "16.00",
+        "currency": "EUR",
+        "origin": "database",
+        "confirmed": "yes"
+      },
+      "shipping": {
+        "rule": "Testregel: Paketversand Standard",
+        "deliveryTime": "Testwert: 3–5 Werktage"
+      },
+      "availability": {
+        "status": "supplier_available",
+        "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
+      },
+      "landing": {
+        "url": "https://example.invalid/shop/SYN-007",
+        "checkedAt": "2026-10-01",
+        "variant": "Gewürzset 3-teilig",
+        "qty": 1,
+        "price": "16.00"
+      },
+      "flags": {
+        "food": "yes",
+        "alcohol": "no",
+        "chilled": "no"
+      },
+      "compliance": {
+        "status": null,
+        "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
+      },
+      "source": {
+        "name": "SYNTHETISCH (Beispielgenerator)",
+        "updatedAt": "2026-10-01"
+      },
+      "workflow": {
+        "status": "review",
+        "exclusionReason": null,
+        "note": null
+      },
+      "approvals": {
+        "data": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "price": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "export": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        }
+      },
+      "synthetic": true
+    },
+    {
+      "id": "SYN-008",
+      "sku": "SYN-SKU-008",
+      "gtin": null,
+      "asin": null,
+      "asinProof": null,
+      "brandLine": "other",
+      "brand": null,
+      "family": "Testfamilie Zeta",
+      "variant": {
+        "label": "Set mit Spirituose 0,2 l"
+      },
+      "title": "TESTARTIKEL Präsentset mit Alkohol",
+      "description": "Synthetisch. Alkohol enthalten, Plattformregeln ungeprüft.",
+      "productUrl": "https://example.invalid/produkt/SYN-008",
+      "imageUrls": [
+        "https://example.invalid/bilder/SYN-008.jpg"
+      ],
+      "imageRights": {
+        "status": "confirmed",
+        "evidence": "SYNTHETISCH: Testnachweis, kein echter Beleg"
+      },
+      "sale": {
+        "unit": "Set",
+        "packSize": 1,
+        "minOrderQty": 1,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
+      },
+      "inquiryOnly": "no",
+      "finishing": {
+        "required": "no",
+        "offeredConfig": null,
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
+      },
+      "price": {
+        "net": "33.00",
+        "taxRate": "19",
+        "gross": "39.27",
+        "currency": "EUR",
+        "origin": "database",
+        "confirmed": "yes"
+      },
+      "shipping": {
+        "rule": "Testregel: Paketversand Standard",
+        "deliveryTime": "Testwert: 3–5 Werktage"
+      },
+      "availability": {
+        "status": "supplier_available",
+        "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
+      },
+      "landing": {
+        "url": "https://example.invalid/shop/SYN-008",
+        "checkedAt": "2026-10-01",
+        "variant": "Set mit Spirituose 0,2 l",
+        "qty": 1,
+        "price": "39.27"
+      },
+      "flags": {
+        "food": "no",
+        "alcohol": "yes",
+        "chilled": "no"
+      },
+      "compliance": {
+        "status": "checked",
+        "notes": "SYNTHETISCH: Testvermerk"
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
+      },
+      "source": {
+        "name": "SYNTHETISCH (Beispielgenerator)",
+        "updatedAt": "2026-10-01"
+      },
+      "workflow": {
+        "status": "review",
+        "exclusionReason": null,
+        "note": null
+      },
+      "approvals": {
+        "data": {
+          "approved": true,
+          "by": "Beispiel-Prüfer",
+          "at": "2026-10-01T09:00:00Z",
+          "fingerprint": "b1ce1ffa"
+        },
+        "price": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "export": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        }
+      },
+      "synthetic": true
+    },
+    {
+      "id": "SYN-009",
+      "sku": "SYN-SKU-009",
+      "gtin": null,
+      "asin": null,
+      "asinProof": null,
+      "brandLine": "roemer_praesentset",
+      "brand": null,
+      "family": "Testfamilie Eta",
+      "variant": {
+        "label": "Standard"
+      },
+      "title": "TESTARTIKEL Präsentset Eta (ausgeschlossen)",
+      "description": "Synthetisch. Ausgeschlossenes Beispiel.",
+      "productUrl": "https://example.invalid/produkt/SYN-009",
+      "imageUrls": [
+        "https://example.invalid/bilder/SYN-009.jpg"
+      ],
+      "imageRights": {
+        "status": "denied",
+        "evidence": "SYNTHETISCH: Testnachweis, kein echter Beleg"
+      },
+      "sale": {
+        "unit": "Set",
+        "packSize": 1,
+        "minOrderQty": 1,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
+      },
+      "inquiryOnly": "no",
+      "finishing": {
+        "required": "no",
+        "offeredConfig": null,
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
+      },
+      "price": {
+        "net": "19.00",
+        "taxRate": "19",
+        "gross": "22.61",
+        "currency": "EUR",
+        "origin": "database",
+        "confirmed": "yes"
+      },
+      "shipping": {
+        "rule": "Testregel: Paketversand Standard",
+        "deliveryTime": "Testwert: 3–5 Werktage"
+      },
+      "availability": {
+        "status": "supplier_available",
+        "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
+      },
+      "landing": {
+        "url": "https://example.invalid/shop/SYN-009",
+        "checkedAt": "2026-10-01",
+        "variant": "Standard",
+        "qty": 1,
+        "price": "22.61"
+      },
+      "flags": {
+        "food": "no",
+        "alcohol": "no",
+        "chilled": "no"
+      },
+      "compliance": {
+        "status": "not_required",
+        "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
+      },
+      "source": {
+        "name": "SYNTHETISCH (Beispielgenerator)",
+        "updatedAt": "2026-10-01"
+      },
+      "workflow": {
+        "status": "excluded",
+        "exclusionReason": "Bildnutzung nicht erlaubt (Testgrund)",
+        "note": null
+      },
+      "approvals": {
+        "data": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "price": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "export": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        }
+      },
+      "synthetic": true
+    },
+    {
+      "id": "SYN-010",
+      "sku": null,
+      "gtin": null,
+      "asin": null,
+      "asinProof": null,
+      "brandLine": "other",
+      "brand": null,
+      "family": "Testfamilie Theta",
+      "variant": {
+        "label": null
+      },
+      "title": "=SUMME(1+1) TESTARTIKEL Formelschutz",
+      "description": "@Beispiel Beschreibung beginnt mit At-Zeichen. Nur wenige Angaben bekannt.",
+      "productUrl": null,
+      "imageUrls": [],
+      "imageRights": {
+        "status": null,
+        "evidence": null
+      },
+      "sale": {
+        "unit": null,
+        "packSize": null,
+        "minOrderQty": null,
+        "components": null
+      },
+      "inquiryOnly": null,
+      "finishing": {
+        "required": null,
+        "offeredConfig": null,
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
+      },
+      "price": {
+        "net": null,
+        "taxRate": null,
+        "gross": null,
+        "currency": null,
+        "origin": null,
+        "confirmed": null
+      },
+      "shipping": {
+        "rule": null,
+        "deliveryTime": null
+      },
+      "availability": {
+        "status": null,
+        "evidence": null,
+        "asOf": null,
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": null
+      },
+      "logistics": {
+        "weightGrams": null,
+        "dimensionsMm": null
+      },
+      "landing": {
+        "url": null,
+        "checkedAt": null,
+        "variant": null,
+        "qty": null,
+        "price": null
+      },
+      "flags": {
+        "food": null,
+        "alcohol": null,
+        "chilled": null
+      },
+      "compliance": {
+        "status": null,
+        "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
+      },
+      "source": {
+        "name": null,
+        "updatedAt": null
+      },
+      "workflow": {
+        "status": "candidate",
+        "exclusionReason": null,
+        "note": null
+      },
+      "approvals": {
+        "data": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "price": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "export": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        }
+      },
+      "synthetic": true
+    },
+    {
+      "id": "SYN-011",
+      "sku": "SYN-SKU-011",
+      "gtin": null,
+      "asin": null,
+      "asinProof": null,
+      "brandLine": "rominox",
+      "brand": null,
+      "family": "Testfamilie Iota",
+      "variant": {
+        "label": "Edelstahl 15 cm"
+      },
+      "title": "TESTARTIKEL Rominox-Artikel Iota (Landingpage weicht ab)",
+      "description": "Synthetisch. Landingpage zeigt einen anderen Preis und eine andere Variante.",
+      "productUrl": "https://example.invalid/produkt/SYN-011",
+      "imageUrls": [
+        "https://example.invalid/bilder/SYN-011.jpg"
+      ],
+      "imageRights": {
+        "status": "confirmed",
+        "evidence": "SYNTHETISCH: Testnachweis, kein echter Beleg"
+      },
+      "sale": {
+        "unit": "Set",
+        "packSize": 1,
+        "minOrderQty": 1,
+        "components": "TESTSET: Inhalt laut synthetischer Stückliste (1× Testartikel A, 1× Testartikel B)"
+      },
+      "inquiryOnly": "no",
+      "finishing": {
+        "required": "no",
+        "offeredConfig": null,
+        "configComplete": null,
+        "printPosition": null,
+        "printColors": null,
+        "printArea": null,
+        "artworkProcess": null,
+        "oneOffIncluded": null
+      },
+      "price": {
+        "net": "9.90",
+        "taxRate": "19",
+        "gross": "11.78",
+        "currency": "EUR",
+        "origin": "database",
+        "confirmed": "yes"
+      },
+      "shipping": {
+        "rule": "Testregel: Paketversand Standard",
+        "deliveryTime": "Testwert: 3–5 Werktage"
+      },
+      "availability": {
+        "status": "supplier_available",
+        "evidence": "SYNTHETISCH: Testbeleg Lieferantenliste",
+        "asOf": "2026-10-01",
+        "reservedQty": null,
+        "location": null,
+        "sla": null,
+        "capacityConfirmed": "yes"
+      },
+      "logistics": {
+        "weightGrams": 800,
+        "dimensionsMm": "200×150×60"
+      },
+      "landing": {
+        "url": "https://example.invalid/shop/SYN-011",
+        "checkedAt": "2026-10-01",
+        "variant": "Edelstahl 18 cm",
+        "qty": 1,
+        "price": "10.99"
+      },
+      "flags": {
+        "food": "no",
+        "alcohol": "no",
+        "chilled": "no"
+      },
+      "compliance": {
+        "status": "not_required",
+        "notes": null
+      },
+      "food": {
+        "ingredients": null,
+        "allergens": null,
+        "netContent": null,
+        "nutrition": null,
+        "responsibleOperator": null,
+        "shelfLife": null,
+        "storage": null
+      },
+      "source": {
+        "name": "SYNTHETISCH (Beispielgenerator)",
+        "updatedAt": "2026-10-01"
+      },
+      "workflow": {
+        "status": "review",
+        "exclusionReason": null,
+        "note": null
+      },
+      "approvals": {
+        "data": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "price": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        },
+        "export": {
+          "approved": false,
+          "by": null,
+          "at": null,
+          "fingerprint": null
+        }
+      },
+      "synthetic": true
+    }
+  ]
+}
